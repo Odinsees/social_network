@@ -1,0 +1,47 @@
+.colorWrapper{
+    background-color: whitesmoke;
+    min-height: 100vh;
+}
+
+.Wrapper{
+    display: grid;
+    grid-template-columns: 0.5fr 2fr;
+    grid-template-rows: 100px 4fr 50px;
+    gap: 4px 4px;
+    grid-template-areas:
+    "Header Header"
+    "Navbar AppContent"
+    "Footer Footer";
+
+    max-width: 1200px;
+    margin: 0 auto;
+    /*height: 100vh;*/
+}
+
+.Header{
+    grid-area: Header;
+    display: flex;
+    justify-content: end;
+}
+
+.Navbar{
+    grid-area: Navbar;
+    background-color: skyblue;
+}
+
+.AppContent{
+    grid-area: AppContent;
+    min-height: 90vh;
+}
+
+.Footer{
+    align-items: center;
+    grid-area: Footer;
+    background-color: #c0e4f3;
+
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+

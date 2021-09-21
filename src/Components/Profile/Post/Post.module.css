@@ -1,0 +1,56 @@
+.item {
+    display: grid;
+    grid-template-columns: 75px 4fr;
+    grid-template-rows: 0.8fr 40px;
+    grid-auto-columns: 1fr;
+    grid-auto-rows: 1fr;
+    gap: 1px 1px;
+    grid-auto-flow: row;
+    grid-template-areas:
+    "Avatar Message"
+    " . LikesCount";
+
+    margin-bottom: 20px;
+    padding: 10px;
+
+    background-color: snow;
+    box-shadow: 10px 0 20px 10px lightgray;
+    border-radius: 10px;
+}
+
+.Avatar {
+    grid-area: Avatar;
+    width: 100%;
+    border-radius: 50%;
+}
+
+.Message {
+    grid-area: Message;
+    display: flex;
+    align-items: end;
+}
+
+.MessageText{
+    background-color: rgba(106, 206, 234, 0.5);
+    border: 2px solid black;
+    border-radius: 15px 15px 15px 0;
+    padding: 5px;
+    margin-left: 20px;
+    margin-top: 15px;
+    height: fit-content;
+    font-size: 20px;
+}
+
+.LikesCount {
+    grid-area: LikesCount;
+    margin-left: 20px;
+    margin-top: 13px;
+    display: flex;
+    align-items: end;
+}
+
+.LikeImg{
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+}

@@ -1,0 +1,83 @@
+textarea{
+    resize: none;
+}
+
+.PostBlock {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 0.5fr 1.5fr 1fr;
+    grid-auto-columns: 1fr;
+    grid-auto-rows: 1fr;
+    gap: 1px 1px;
+    grid-auto-flow: row;
+    grid-template-areas:
+    "PostTitle ."
+    "NewPost NewPost"
+    "Posts Posts";
+}
+
+.PostsTitle {
+    grid-area: PostTitle;
+    padding-left: 10px;
+}
+
+.NewPost {
+    grid-area: NewPost;
+    padding-left: 10px;
+
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 0.5fr;
+    gap: 0 0;
+    grid-template-areas:
+    "TextArea TextArea"
+    "AddPostButton .";
+}
+
+.TextArea{
+    grid-area: TextArea;
+    width: 75%;
+
+    padding: 10px 20px 10px 10px;
+
+    background-color: snow;
+    box-shadow: 10px 0 20px 10px lightgray;
+    border-radius: 10px;
+}
+
+
+
+.AddPostButton{
+    grid-area: AddPostButton;
+
+
+    margin: 20px 0 20px 0;
+    text-decoration: none;
+    display: inline-block;
+    max-width: 140px;
+    max-height: 45px;
+    line-height: 45px;
+    border-radius: 15px;
+    font-size: 11px;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 3px;
+    font-weight: 800;
+    color: #524f4e;
+    background: skyblue;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, .1);
+    transition: .3s;
+}
+
+.AddPostButton:hover{
+    background: rgba(106, 206, 234, 0.5);;
+    box-shadow: 0 15px 20px rgba(19, 30, 35, 0.5);;
+    color: black;
+    transform: translateY(-7px);
+}
+
+.Posts {
+    grid-area: Posts;
+    padding: 10px;
+}

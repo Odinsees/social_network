@@ -1,0 +1,23 @@
+
+.Header{
+    width: 100%;
+    padding-left: 10px;
+    background-color: #c0e4f3;
+
+    display: flex;
+    align-items: center;
+}
+
+.Header img{
+    width: 30%;
+    max-width: 100px;
+}
+
+.Title{
+    width: 50%;
+    margin-left: 15px;
+    font-size: 30px;
+    /*font-size: 2vw;*/
+}
+
+

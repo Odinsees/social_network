@@ -1,0 +1,32 @@
+.Profile {
+    display: flex;
+    flex-direction:column;
+}
+
+.ProfileInfo {
+
+}
+
+.MyPosts {
+
+}
+
+
+/*.Profile {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.5fr 1.5fr;
+    gap: 1px 1px;
+    grid-auto-flow: row;
+    grid-template-areas:
+    "ProfileInfo"
+    "MyPosts";
+    !*height: 100%;*!
+}
+
+.ProfileInfo {
+    grid-area: ProfileInfo;
+}
+
+.MyPosts { grid-area: MyPosts; }*/
+

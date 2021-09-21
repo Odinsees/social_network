@@ -1,0 +1,81 @@
+.nav {
+    padding-left: 20px;
+    padding-top: 20px;
+    position: relative;
+    margin-left: 20px;
+}
+
+.nav>div{
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.nav a{
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+a.active{
+    color: black;
+}
+
+.itemProfile::before{
+    content: '';
+    background-image: url("/src/image/Icon/user.svg");
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    background-size: cover;
+    left: -20px;
+    top: 7px;
+    align-items: center;
+}
+.itemDialogs::before{
+    content: '';
+    background-image: url("/src/image/Icon/mail.svg");
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    background-size: cover;
+    left: -20px;
+    top: 7px;
+    align-items: center;
+}
+.itemNews::before{
+    content: '';
+    background-image: url("/src/image/Icon/television.svg");
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    background-size: cover;
+    left: -20px;
+    top: 7px;
+    align-items: center;
+}
+.itemMusic::before{
+    content: '';
+    background-image: url("/src/image/Icon/music_note.svg");
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    background-size: cover;
+    left: -20px;
+    top: 7px;
+    align-items: center;
+
+}
+.itemSettings::before{
+    content: '';
+    background-image: url("/src/image/Icon/settings.svg");
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    background-size: cover;
+    left: -20px;
+    top: 7px;
+    align-items: center;
+}
+

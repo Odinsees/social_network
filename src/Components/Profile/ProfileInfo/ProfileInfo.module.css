@@ -1,0 +1,25 @@
+.ProfileInfo{
+    max-height: fit-content;
+}
+
+.ProfileInfoImage {
+    width: 100%;
+}
+.descriptionBlock{
+    width: 100%;
+    height: 30%;
+    padding-top: 20px;
+    padding-right: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.Description{
+    margin-right: 30px;
+}
+
+.Avatar{
+    width: 15%;
+    border-radius: 50%;
+}
