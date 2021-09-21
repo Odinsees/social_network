@@ -13,12 +13,12 @@ import {RootStateType} from "./redux/state";
 
 type PropsType = {
     state: RootStateType
-    AddPost:()=>void
-    updateNewPostText:(newText:string)=>void
+    AddPost: () => void
+    updateNewPostText: (newText: string) => void
 }
 
 
-const App: React.FC<PropsType> = ({state,AddPost,updateNewPostText}) => {
+const App: React.FC<PropsType> = ({state, AddPost, updateNewPostText}) => {
     return (
         <div className={s.colorWrapper}>
             <BrowserRouter>
@@ -28,6 +28,7 @@ const App: React.FC<PropsType> = ({state,AddPost,updateNewPostText}) => {
                     </div>
                     <div className={s.Navbar}>
                         <Navbar/>
+
                     </div>
                     <div className={s.AppContent}>
                         <Route
