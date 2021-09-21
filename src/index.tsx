@@ -5,16 +5,19 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {AddPost, RootStateType} from "./redux/state";
+import {BrowserRouter} from "react-router-dom";
 
 
 let rerenderEntireThree = (state:RootStateType) =>{
     ReactDOM.render(
         <React.StrictMode>
-            <App
-                state={state}
-                AddPost={AddPost}
-                updateNewPostText={updateNewPostText}
-            />
+            <BrowserRouter>
+                <App
+                    state={state}
+                    AddPost={AddPost}
+                    updateNewPostText={updateNewPostText}
+                />
+            </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root')
     );
