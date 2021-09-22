@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './App.module.css';
-import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
+import {HashRouter, Redirect, Route, Switch} from "react-router-dom";
 import {Header} from "./Components/Header/Header";
 import {Navbar} from "./Components/Navbar/Navbar";
 import {Profile} from "./Components/Profile/Profile";
@@ -12,15 +12,16 @@ import {RootStateType} from "./redux/state";
 
 
 type PropsType = {
-    state: RootStateType
+    store:RootStateType
     AddPost: () => void
     updateNewPostText: (newText: string) => void
 }
 
 
-const App: React.FC<PropsType> = ({state, AddPost, updateNewPostText}) => {
+const App: React.FC<PropsType> = ({store, AddPost, updateNewPostText}) => {
     return (
-        <div className={s.colorWrapper}>
+        <HashRouter>
+            <div className={s.colorWrapper}>
                 <Switch>
                     <Route path={'/'} exact render={() => <Redirect to={'/profile'}/>}/>
                     <div className={s.Wrapper}>
@@ -36,7 +37,7 @@ const App: React.FC<PropsType> = ({state, AddPost, updateNewPostText}) => {
                                 path='/profile'
                                 render={() =>
                                     <Profile
-                                        profilePage={state.profilePage}
+                                        profilePage={store.profilePage}
                                         AddPost={AddPost}
                                         updateNewPostText={updateNewPostText}
                                     />}/>
@@ -44,7 +45,7 @@ const App: React.FC<PropsType> = ({state, AddPost, updateNewPostText}) => {
                                 path='/dialogs'
                                 render={() =>
                                     <Dialogs
-                                        state={state.dialogsPage}
+                                        state={store.dialogsPage}
                                     />}
                             />
                             <Route path='/news' component={News}/>
@@ -58,8 +59,8 @@ const App: React.FC<PropsType> = ({state, AddPost, updateNewPostText}) => {
                         </div>
                     </div>
                 </Switch>
-        </div>
-
+            </div>
+        </HashRouter>
     )
 }
 

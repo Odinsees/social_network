@@ -1,31 +1,26 @@
-import {state, subscribe, updateNewPostText} from "./redux/state";
+import {store} from "./redux/state";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {AddPost, RootStateType} from "./redux/state";
-import {BrowserRouter, HashRouter} from "react-router-dom";
 
 
-let rerenderEntireThree = (state:RootStateType) =>{
+
+let rerenderEntireThree = () =>{
     ReactDOM.render(
         <React.StrictMode>
-            <HashRouter>
                 <App
-                    state={state}
-                    AddPost={AddPost}
-                    updateNewPostText={updateNewPostText}
+                    store={store.getState()}
+                    AddPost={store.AddPost.bind(store)}
+                    updateNewPostText={store.updateNewPostText.bind(store)}
                 />
-            </HashRouter>
         </React.StrictMode>,
         document.getElementById('root')
     );
 }
-
-rerenderEntireThree(state)
-
-subscribe(rerenderEntireThree)
+rerenderEntireThree()
+store.subscribe(rerenderEntireThree)
 
 
 // If you want to start measuring performance in your app, pass a function
