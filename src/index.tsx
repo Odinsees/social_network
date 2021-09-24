@@ -11,9 +11,8 @@ let rerenderEntireThree = () =>{
     ReactDOM.render(
         <React.StrictMode>
                 <App
-                    store={store.getState()}
-                    AddPost={store.AddPost.bind(store)}
-                    updateNewPostText={store.updateNewPostText.bind(store)}
+                    state={store.getState()}
+                    dispatch={store.dispatch.bind(store)}
                 />
         </React.StrictMode>,
         document.getElementById('root')

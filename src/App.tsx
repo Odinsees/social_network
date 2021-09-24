@@ -8,17 +8,16 @@ import {Dialogs} from "./Components/Dialogs/Dialogs";
 import {News} from "./Components/News/News";
 import {Music} from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
-import {RootStateType} from "./redux/state";
+import {ActionsTypes, RootStateType} from "./redux/state";
 
 
 type PropsType = {
-    store:RootStateType
-    AddPost: () => void
-    updateNewPostText: (newText: string) => void
+    state:RootStateType
+    dispatch:(action: ActionsTypes)=>void
 }
 
 
-const App: React.FC<PropsType> = ({store, AddPost, updateNewPostText}) => {
+const App: React.FC<PropsType> = ({state: state, dispatch}) => {
     return (
         <HashRouter>
             <div className={s.colorWrapper}>
@@ -37,15 +36,15 @@ const App: React.FC<PropsType> = ({store, AddPost, updateNewPostText}) => {
                                 path='/profile'
                                 render={() =>
                                     <Profile
-                                        profilePage={store.profilePage}
-                                        AddPost={AddPost}
-                                        updateNewPostText={updateNewPostText}
+                                        profilePage={state.profilePage}
+                                        dispatch={dispatch}
                                     />}/>
                             <Route
                                 path='/dialogs'
                                 render={() =>
                                     <Dialogs
-                                        state={store.dialogsPage}
+                                        dialogsPage={state.dialogsPage}
+                                        dispatch={dispatch}
                                     />}
                             />
                             <Route path='/news' component={News}/>

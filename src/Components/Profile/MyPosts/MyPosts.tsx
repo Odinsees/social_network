@@ -2,18 +2,17 @@ import React, {ChangeEvent, KeyboardEvent} from 'react';
 import {Post} from '../Post/Post';
 import "./MyPosts.module.css"
 import s from "./MyPosts.module.css";
-import {PostsType} from "../../../redux/state";
+import {ActionsTypes, addPostActionCreator, PostsType, UpdateNewPostActionCreator} from "../../../redux/state";
 
 
 type PropsType = {
     PostsState: PostsType[]
-    AddPost: () => void
     newPostText:string
-    updateNewPostText:(newText:string)=>void
+    dispatch:(action: ActionsTypes)=>void
 }
 
 
-export const MyPosts: React.FC<PropsType> = ({PostsState, AddPost,newPostText,updateNewPostText}) => {
+export const MyPosts: React.FC<PropsType> = ({PostsState,newPostText, dispatch}) => {
 
     const postsHandler = () => PostsState.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
 
@@ -21,19 +20,22 @@ export const MyPosts: React.FC<PropsType> = ({PostsState, AddPost,newPostText,up
 
     let onClickHandler = () => {
         if (newPostElement.current) {
-            AddPost()
+            //AddPost()
+            dispatch(addPostActionCreator())
         }
     }
 
     let onKeyPressHandler = (event:KeyboardEvent<HTMLTextAreaElement>) =>{
-        if (event.key === "Enter" && "Shift"){
-            AddPost()
+        if (event.key === "Enter"){
+            //AddPost()
+            dispatch(addPostActionCreator())
         }
     }
 
     let onPostChange = (e:ChangeEvent<HTMLTextAreaElement>) =>{
         let text = e.target.value
-        updateNewPostText(text)
+        let action = UpdateNewPostActionCreator(text)
+        dispatch(action)
     }
 
     return (

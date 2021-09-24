@@ -22,6 +22,7 @@ export type ProfilePageType = {
 export type DialogsPageType = {
     dialogs: DialogsType[]
     messages: MessagesType[]
+    newMessageText: string
 }
 
 export type RootStateType = {
@@ -32,11 +33,34 @@ export type RootStateType = {
 export type StoreType = {
     _state: RootStateType
     _callSubscriber: () => void
-    AddPost: () => void
-    updateNewPostText: (newText: string) => void
     subscribe: (observer: () => void) => void
-    getState:()=>RootStateType
+    getState: () => RootStateType
+    dispatch: (action: ActionsTypes) => void
 }
+
+export type ActionsTypes = AddPostActionType | UpdateNewTextActionType | AddMessageActionType | UpdateNewMessageTextActionType
+
+type AddPostActionType = {
+    type: "ADD-POST"
+}
+type UpdateNewTextActionType = {
+    type: "UPDATE-NEW-POST-TEXT"
+    text: string
+}
+
+type AddMessageActionType = {
+    type: "ADD-MESSAGE"
+}
+
+type UpdateNewMessageTextActionType = {
+    type: "UPDATE-NEW-MESSAGE-TEXT"
+    text: string
+}
+
+const ADD_POST = "ADD-POST";
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const ADD_MESSAGE = "ADD-MESSAGE"
+const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT"
 
 export let store: StoreType = {
     _state: {
@@ -68,30 +92,59 @@ export let store: StoreType = {
                 {id: 3, message: "Ratatata"},
                 {id: 4, message: "Yo"},
                 {id: 5, message: "Hello bro"}
-            ]
+            ],
+            newMessageText: ""
         }
-    },
-    getState(){
-        return this._state
     },
     _callSubscriber() {
         console.log('state was changed')
     },
-    AddPost() {
-        if (this._state.profilePage.newPostText.trim() !== "" && this._state.profilePage.newPostText !== "Add text") {
-            let NewPost: PostsType = {id: 6, message: this._state.profilePage.newPostText, likesCount: 0}
-            this._state.profilePage.posts.unshift(NewPost)
-            this._callSubscriber()
-            this._state.profilePage.newPostText = ""
-        }
-    },
-    updateNewPostText(newText: string) {
-        this._state.profilePage.newPostText = newText
-        this._callSubscriber()
+    getState() {
+        return this._state
     },
     subscribe(observer) {
         this._callSubscriber = observer
+    },
+    dispatch(action) {
+        if (action.type === ADD_POST) {
+            if (this._state.profilePage.newPostText.trim() !== "" /*&& this._state.profilePage.newPostText !== "Add text"*/) {
+                let NewPost: PostsType = {id: 6, message: this._state.profilePage.newPostText, likesCount: 0}
+                this._state.profilePage.posts.unshift(NewPost)
+                this._state.profilePage.newPostText = ""
+                this._callSubscriber()
+            }
+        } else if (action.type === UPDATE_NEW_POST_TEXT) {
+            this._state.profilePage.newPostText = action.text
+            this._callSubscriber()
+        } else if (action.type === ADD_MESSAGE){
+            if (this._state.dialogsPage.newMessageText.trim() !== "") {
+                let NewMessage: MessagesType = {id: 5, message: this._state.dialogsPage.newMessageText}
+                this._state.dialogsPage.messages.push(NewMessage)
+                this._state.dialogsPage.newMessageText = ""
+                this._callSubscriber()
+            }
+        }else if(action.type === UPDATE_NEW_MESSAGE_TEXT){
+            this._state.dialogsPage.newMessageText = action.text
+            this._callSubscriber()
+        }
+
     }
+}
+
+export const addPostActionCreator = (): AddPostActionType => {
+    return {type: ADD_POST}
+}
+
+export const UpdateNewPostActionCreator = (text: string): UpdateNewTextActionType => {
+    return {type: UPDATE_NEW_POST_TEXT, text: text}
+}
+
+export const addMessageActionCreator = (): AddMessageActionType => {
+    return {type: ADD_MESSAGE}
+}
+
+export const UpdateNewMessageTextActionCreator = (text: string): UpdateNewMessageTextActionType => {
+    return {type: UPDATE_NEW_MESSAGE_TEXT, text: text}
 }
 
 
