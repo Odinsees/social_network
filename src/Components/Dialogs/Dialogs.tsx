@@ -4,47 +4,40 @@ import {DialogsItem} from './DialogsItem/DialogsItem';
 import {Message} from './Message/Message';
 import {
     ActionsTypes,
-    addMessageActionCreator,
-    addPostActionCreator,
-    DialogsPageType, UpdateNewMessageTextActionCreator,
-    UpdateNewPostActionCreator
+    DialogsPageType
 } from "../../redux/state";
+import {addMessageActionCreator, UpdateNewMessageTextActionCreator} from "../../redux/dialogsReducer";
 
 
 type PropsType = {
-    dialogsPage:DialogsPageType
-    dispatch:(action: ActionsTypes)=>void
+    dialogsPage: DialogsPageType
+    dispatch: (action: ActionsTypes) => void
 }
 
-export const Dialogs: React.FC<PropsType> = ({dialogsPage,dispatch}) => {
+export const Dialogs: React.FC<PropsType> = ({dialogsPage, dispatch}) => {
 
 
     const dialogsHandler = () => dialogsPage.dialogs.map(d => <DialogsItem id={d.id} name={d.name}/>)
 
     const messagesHandler = () => dialogsPage.messages.map(m => <Message message={m.message}/>)
 
-    let newMessageElement = React.createRef<HTMLTextAreaElement>()
+   /* let newMessageElement = React.createRef<HTMLTextAreaElement>()*/
 
-    let onClickHandler = () => {
-        if (newMessageElement.current) {
+    let onSendMessageClickHandler = () => {
+            dispatch(addMessageActionCreator())
+    }
+
+    let onSendMessageKeyPressHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
+        if (event.key === "Enter") {
             dispatch(addMessageActionCreator())
         }
     }
 
-    let onKeyPressHandler = (event:KeyboardEvent<HTMLTextAreaElement>) =>{
-        if (event.key === "Enter"){
-            dispatch(addMessageActionCreator())
-        }
-    }
-
-    let onMessageTextChange = (e:ChangeEvent<HTMLTextAreaElement>) =>{
+    let onMessageTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let text = e.target.value
         let action = UpdateNewMessageTextActionCreator(text)
         dispatch(action)
     }
-
-
-
 
     return (
         <div className={s.dialogs}>
@@ -52,13 +45,21 @@ export const Dialogs: React.FC<PropsType> = ({dialogsPage,dispatch}) => {
                 {dialogsHandler()}
             </div>
             <div className={s.messages}>
-                {messagesHandler()}
-                <textarea ref={newMessageElement}
-                          onChange={onMessageTextChange}
-                          onKeyPress={onKeyPressHandler}
-                          value={dialogsPage.newMessageText}
-                > </textarea>
-                <button onClick={onClickHandler}>send</button>
+                <div>{messagesHandler()}</div>
+                <div>
+                    <div>
+                         <textarea
+                             className={s.TextArea}
+                             /*ref={newMessageElement}*/
+                             onChange={onMessageTextChange}
+                             onKeyPress={onSendMessageKeyPressHandler}
+                             value={dialogsPage.newMessageText}
+                         > </textarea>
+                    </div>
+                    <div>
+                        <button onClick={onSendMessageClickHandler}>send</button>
+                    </div>
+                </div>
             </div>
         </div>
     )

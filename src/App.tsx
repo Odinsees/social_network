@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './App.module.css';
-import {HashRouter, Redirect, Route, Switch} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import {Header} from "./Components/Header/Header";
 import {Navbar} from "./Components/Navbar/Navbar";
 import {Profile} from "./Components/Profile/Profile";
@@ -12,14 +12,13 @@ import {ActionsTypes, RootStateType} from "./redux/state";
 
 
 type PropsType = {
-    state:RootStateType
-    dispatch:(action: ActionsTypes)=>void
+    state: RootStateType
+    dispatch: (action: ActionsTypes) => void
 }
 
 
 const App: React.FC<PropsType> = ({state: state, dispatch}) => {
     return (
-        <HashRouter>
             <div className={s.colorWrapper}>
                 <Switch>
                     <Route path={'/'} exact render={() => <Redirect to={'/profile'}/>}/>
@@ -59,7 +58,6 @@ const App: React.FC<PropsType> = ({state: state, dispatch}) => {
                     </div>
                 </Switch>
             </div>
-        </HashRouter>
     )
 }
 

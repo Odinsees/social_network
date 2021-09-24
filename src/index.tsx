@@ -4,16 +4,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {HashRouter} from "react-router-dom";
 
 
-
-let rerenderEntireThree = () =>{
+let rerenderEntireThree = () => {
     ReactDOM.render(
         <React.StrictMode>
+            <HashRouter>
                 <App
                     state={store.getState()}
                     dispatch={store.dispatch.bind(store)}
                 />
+            </HashRouter>
         </React.StrictMode>,
         document.getElementById('root')
     );
