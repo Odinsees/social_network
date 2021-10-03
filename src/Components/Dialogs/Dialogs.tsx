@@ -2,41 +2,36 @@ import React, {ChangeEvent, KeyboardEvent} from 'react';
 import s from './Dialogs.module.css'
 import {DialogsItem} from './DialogsItem/DialogsItem';
 import {Message} from './Message/Message';
-import {
-    ActionsTypes,
-    DialogsPageType
-} from "../../redux/store";
-import {addMessageActionCreator, UpdateNewMessageTextActionCreator} from "../../redux/dialogsReducer";
+import {addMessageActionCreator, DialogsPageType, UpdateNewMessageTextActionCreator} from "../../redux/dialogsReducer";
 
 
 type PropsType = {
-    dialogsPage: DialogsPageType
-    dispatch: (action: ActionsTypes) => void
+    dialogsState: DialogsPageType
 }
 
-export const Dialogs: React.FC<PropsType> = ({dialogsPage, dispatch}) => {
 
+export const Dialogs: React.FC<PropsType> = (props) => {
 
-    const dialogsHandler = () => dialogsPage.dialogs.map(d => <DialogsItem id={d.id} name={d.name}/>)
+    const dialogsHandler = () => props.dialogsState.dialogs.map(d => <DialogsItem id={d.id} name={d.name}/>)
 
-    const messagesHandler = () => dialogsPage.messages.map(m => <Message message={m.message}/>)
+    const messagesHandler = () => props.dialogsState.messages.map(m => <Message message={m.message}/>)
 
    /* let newMessageElement = React.createRef<HTMLTextAreaElement>()*/
 
     let onSendMessageClickHandler = () => {
-            dispatch(addMessageActionCreator())
+            props.store.dispatch(addMessageActionCreator())
     }
 
     let onSendMessageKeyPressHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
         if (event.key === "Enter") {
-            dispatch(addMessageActionCreator())
+            props.store.dispatch(addMessageActionCreator())
         }
     }
 
     let onMessageTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let text = e.target.value
         let action = UpdateNewMessageTextActionCreator(text)
-        dispatch(action)
+        props.store.dispatch(action)
     }
 
     return (
@@ -53,7 +48,7 @@ export const Dialogs: React.FC<PropsType> = ({dialogsPage, dispatch}) => {
                              /*ref={newMessageElement}*/
                              onChange={onMessageTextChange}
                              onKeyPress={onSendMessageKeyPressHandler}
-                             value={dialogsPage.newMessageText}
+                             value={props.dialogsState.newMessageText}
                          > </textarea>
                     </div>
                     <div>

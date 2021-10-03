@@ -7,6 +7,11 @@ export type PostsType = {
     message: string
     likesCount: number
 }
+export type ProfilePageType = {
+    posts: PostsType[]
+    newPostText: string
+}
+
 export type DialogsType = {
     id: number
     name: string
@@ -15,15 +20,12 @@ export type MessagesType = {
     id: number
     message: string
 }
-export type ProfilePageType = {
-    posts: PostsType[]
-    newPostText: string
-}
 export type DialogsPageType = {
     dialogs: DialogsType[]
     messages: MessagesType[]
     newMessageText: string
 }
+
 export type NewsType = {}
 export type MusicType = {}
 export type SettingsType = {}

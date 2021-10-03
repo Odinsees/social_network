@@ -1,4 +1,4 @@
-import {RootReducerType, store} from "./redux/redux-store";
+import {RootReducerType, store, StoreType} from "./redux/redux-store";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -7,24 +7,22 @@ import reportWebVitals from './reportWebVitals';
 import {HashRouter} from "react-router-dom";
 
 
-let rerenderEntireThree = (state:RootReducerType) => {
+let rerenderEntireThree = (store:StoreType) => {
     ReactDOM.render(
         <React.StrictMode>
             <HashRouter>
                 <App
-                    state={state}
-                    dispatch={store.dispatch.bind(store)}
+                    store={store}
                 />
             </HashRouter>
         </React.StrictMode>,
         document.getElementById('root')
     );
 }
-rerenderEntireThree(store.getState())
+rerenderEntireThree(store)
 
 store.subscribe(()=>{
-    let state = store.getState()
-    rerenderEntireThree(state)
+    rerenderEntireThree(store)
 })
 
 

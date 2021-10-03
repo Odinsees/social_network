@@ -8,17 +8,16 @@ import {Dialogs} from "./Components/Dialogs/Dialogs";
 import {News} from "./Components/News/News";
 import {Music} from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
-import {ActionsTypes, RootStateType} from "./redux/store";
-import {RootReducerType} from "./redux/redux-store";
+import { StoreType} from "./redux/redux-store";
+import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
 
 
 type PropsType = {
-    state: RootReducerType
-    dispatch: (action: ActionsTypes) => void
+    store: StoreType
 }
 
 
-const App: React.FC<PropsType> = ({state: state, dispatch}) => {
+const App: React.FC<PropsType> = (props) => {
     return (
             <div className={s.colorWrapper}>
                 <Switch>
@@ -36,15 +35,13 @@ const App: React.FC<PropsType> = ({state: state, dispatch}) => {
                                 path='/profile'
                                 render={() =>
                                     <Profile
-                                        profilePage={state.profileReducer}
-                                        dispatch={dispatch}
+                                        store={props.store}
                                     />}/>
                             <Route
                                 path='/dialogs'
                                 render={() =>
-                                    <Dialogs
-                                        dialogsPage={state.dialogsReducer}
-                                        dispatch={dispatch}
+                                    <DialogsContainer
+                                        store={props.store}
                                     />}
                             />
                             <Route path='/news' component={News}/>
