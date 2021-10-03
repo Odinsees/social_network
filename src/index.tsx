@@ -1,4 +1,4 @@
-import {store} from "./redux/state";
+import {RootReducerType, store} from "./redux/redux-store";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -7,12 +7,12 @@ import reportWebVitals from './reportWebVitals';
 import {HashRouter} from "react-router-dom";
 
 
-let rerenderEntireThree = () => {
+let rerenderEntireThree = (state:RootReducerType) => {
     ReactDOM.render(
         <React.StrictMode>
             <HashRouter>
                 <App
-                    state={store.getState()}
+                    state={state}
                     dispatch={store.dispatch.bind(store)}
                 />
             </HashRouter>
@@ -20,8 +20,12 @@ let rerenderEntireThree = () => {
         document.getElementById('root')
     );
 }
-rerenderEntireThree()
-store.subscribe(rerenderEntireThree)
+rerenderEntireThree(store.getState())
+
+store.subscribe(()=>{
+    let state = store.getState()
+    rerenderEntireThree(state)
+})
 
 
 // If you want to start measuring performance in your app, pass a function

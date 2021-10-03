@@ -8,11 +8,12 @@ import {Dialogs} from "./Components/Dialogs/Dialogs";
 import {News} from "./Components/News/News";
 import {Music} from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
-import {ActionsTypes, RootStateType} from "./redux/state";
+import {ActionsTypes, RootStateType} from "./redux/store";
+import {RootReducerType} from "./redux/redux-store";
 
 
 type PropsType = {
-    state: RootStateType
+    state: RootReducerType
     dispatch: (action: ActionsTypes) => void
 }
 
@@ -35,14 +36,14 @@ const App: React.FC<PropsType> = ({state: state, dispatch}) => {
                                 path='/profile'
                                 render={() =>
                                     <Profile
-                                        profilePage={state.profilePage}
+                                        profilePage={state.profileReducer}
                                         dispatch={dispatch}
                                     />}/>
                             <Route
                                 path='/dialogs'
                                 render={() =>
                                     <Dialogs
-                                        dialogsPage={state.dialogsPage}
+                                        dialogsPage={state.dialogsReducer}
                                         dispatch={dispatch}
                                     />}
                             />
