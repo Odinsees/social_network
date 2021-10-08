@@ -34,25 +34,22 @@ let initialState: DialogsPageType = {
 }
 
 const dialogsReducer = (state: DialogsPageType = initialState, action: AllActionType): DialogsPageType => {
-    let stateCopy;
     switch (action.type) {
         case ADD_MESSAGE:
             if (state.newMessageText.trim() !== "") {
                 let NewMessage: MessagesType = {id: 5, message: state.newMessageText}
-                stateCopy = {
+                return  {
                     ...state,
                     messages: [...state.messages, NewMessage],
                     newMessageText:''
                 }
-                return stateCopy
             }
             return state
         case UPDATE_NEW_MESSAGE_TEXT:
-            stateCopy = {
+            return  {
                 ...state,
                 newMessageText: action.newText
             }
-            return stateCopy
         default:
             return state
     }

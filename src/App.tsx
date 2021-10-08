@@ -8,6 +8,8 @@ import {News} from "./Components/News/News";
 import {Music} from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
 import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
+import {Users} from "./Components/Users/Users";
+import {UsersContainer} from "./Components/Users/UsersContainer";
 
 
 type PropsType = {
@@ -33,6 +35,7 @@ const App: React.FC<PropsType> = () => {
                             <Route path='/dialogs' render={() => <DialogsContainer/>}/>
                             <Route path='/news' component={News}/>
                             <Route path='/music' component={Music}/>
+                            <Route path='/users' render={() => <UsersContainer/>}/>
                             <Route path='/settings' component={Settings}/>
                         </div>
                         <div className={s.Footer}>

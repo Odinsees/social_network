@@ -24,25 +24,22 @@ let initialState: ProfilePageType = {
 }
 
 const profileReducer = (state: ProfilePageType = initialState, action: AllActionType): ProfilePageType => {
-    let stateCopy;
     switch (action.type) {
         case ADD_POST:
             if (state.newPostText.trim() !== "") {
                 let NewPost: PostsType = {id: 6, message: state.newPostText, likesCount: 0}
-                stateCopy = {
+                return {
                     ...state,
-                    posts:[NewPost,...state.posts],
+                    posts: [NewPost, ...state.posts],
                     newPostText: ""
                 }
-                return stateCopy
             }
             return state
         case UPDATE_NEW_POST_TEXT:
-            stateCopy = {
+            return {
                 ...state,
-                newPostText:action.newText
+                newPostText: action.newText
             }
-            return stateCopy
         default:
             return state
     }
