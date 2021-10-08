@@ -8,7 +8,7 @@ import {MyPostPropsType} from "./MyPostsContainer";
 
 export const MyPosts: React.FC<MyPostPropsType> = ({PostsState, newPostText, ...props}) => {
 
-    const postsHandler = () => PostsState.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
+    const postsHandler = () => PostsState.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
 
     let onClickHandler = () => {
         props.addPost()

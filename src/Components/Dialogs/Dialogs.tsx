@@ -7,9 +7,9 @@ import {DialogsPropsType} from "./DialogsContainer";
 
 export const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
-    const dialogsHandler = () => props.dialogsState.dialogs.map(d => <DialogsItem id={d.id} name={d.name}/>)
+    const dialogsHandler = () => props.dialogsState.dialogs.map(d => <DialogsItem key={d.id} id={d.id} name={d.name}/>)
 
-    const messagesHandler = () => props.dialogsState.messages.map(m => <Message message={m.message}/>)
+    const messagesHandler = () => props.dialogsState.messages.map(m => <Message key={m.id} message={m.message}/>)
 
     let onSendMessageClickHandler = () => {
             props.onSendMessage()
@@ -39,7 +39,7 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
                              className={s.TextArea}
                              onChange={onMessageTextChangeHandler}
                              onKeyPress={onSendMessageKeyPressHandler}
-                             value={props.newMessageText}
+                             value={props.dialogsState.newMessageText}
                          > </textarea>
                     </div>
                     <div>

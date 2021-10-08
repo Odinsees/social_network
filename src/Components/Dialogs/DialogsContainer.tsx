@@ -11,7 +11,6 @@ import {Dispatch} from "redux";
 
 type MapStateToPropsType = {
     dialogsState: DialogsPageType
-    newMessageText:string
 }
 
 type MapDispatchToPropsType = {
@@ -23,8 +22,7 @@ export type DialogsPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 let mapStateToProps = (state:RootReducerType):MapStateToPropsType =>{
     return {
-        dialogsState: state.dialogsReducer,
-        newMessageText: state.dialogsReducer.newMessageText,
+        dialogsState: state.dialogsReducer
     }
 }
 let mapDispatchToProps = (dispatch:Dispatch):MapDispatchToPropsType =>{
