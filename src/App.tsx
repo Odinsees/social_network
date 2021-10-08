@@ -4,20 +4,18 @@ import {Redirect, Route, Switch} from "react-router-dom";
 import {Header} from "./Components/Header/Header";
 import {Navbar} from "./Components/Navbar/Navbar";
 import {Profile} from "./Components/Profile/Profile";
-import {Dialogs} from "./Components/Dialogs/Dialogs";
 import {News} from "./Components/News/News";
 import {Music} from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
-import { StoreType} from "./redux/redux-store";
 import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
 
 
 type PropsType = {
-    store: StoreType
+    //store: StoreType
 }
 
 
-const App: React.FC<PropsType> = (props) => {
+const App: React.FC<PropsType> = () => {
     return (
             <div className={s.colorWrapper}>
                 <Switch>
@@ -31,19 +29,8 @@ const App: React.FC<PropsType> = (props) => {
 
                         </div>
                         <div className={s.AppContent}>
-                            <Route
-                                path='/profile'
-                                render={() =>
-                                    <Profile
-                                        store={props.store}
-                                    />}/>
-                            <Route
-                                path='/dialogs'
-                                render={() =>
-                                    <DialogsContainer
-                                        store={props.store}
-                                    />}
-                            />
+                            <Route path='/profile' render={() => <Profile/>}/>
+                            <Route path='/dialogs' render={() => <DialogsContainer/>}/>
                             <Route path='/news' component={News}/>
                             <Route path='/music' component={Music}/>
                             <Route path='/settings' component={Settings}/>

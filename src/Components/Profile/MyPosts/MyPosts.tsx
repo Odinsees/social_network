@@ -2,22 +2,13 @@ import React, {ChangeEvent, KeyboardEvent} from 'react';
 import {Post} from './Post/Post';
 import "./MyPosts.module.css"
 import s from "./MyPosts.module.css";
-import {PostsType} from "../../../redux/profileReducer";
+import {MyPostPropsType} from "./MyPostsContainer";
 
 
-type PropsType = {
-    PostsState: PostsType[]
-    newPostText: string
-    addPost: () => void
-    updateNewPostText: (text: string) => void
-}
 
-
-export const MyPosts: React.FC<PropsType> = ({PostsState, newPostText, ...props}) => {
+export const MyPosts: React.FC<MyPostPropsType> = ({PostsState, newPostText, ...props}) => {
 
     const postsHandler = () => PostsState.map(p => <Post message={p.message} likesCount={p.likesCount}/>)
-
-    //let newPostElement = React.createRef<HTMLTextAreaElement>()
 
     let onClickHandler = () => {
         props.addPost()

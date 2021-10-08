@@ -1,4 +1,3 @@
-
 const ADD_MESSAGE = "ADD-MESSAGE"
 const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT"
 
@@ -16,7 +15,7 @@ export type DialogsPageType = {
     newMessageText: string
 }
 
-let initialState = {
+let initialState:DialogsPageType = {
     dialogs: [
         {id: 1, name: "Pavel"},
         {id: 2, name: "Irina"},
@@ -34,27 +33,32 @@ let initialState = {
     newMessageText: ""
 }
 
-const dialogsReducer = (state: DialogsPageType = initialState, action: AllActionType): DialogsPageType =>{
-    switch (action.type){
+const dialogsReducer = (state: DialogsPageType = initialState, action: AllActionType): DialogsPageType => {
+    switch (action.type) {
         case ADD_MESSAGE:
-            let NewMessage: MessagesType = {id: 5, message: state.newMessageText}
-            state.messages.push(NewMessage)
-            state.newMessageText = ""
+            if (state.newMessageText.trim() !== "") {
+                let NewMessage: MessagesType = {id: 5, message: state.newMessageText}
+                let stateCopy  = {...state}
+                stateCopy.messages = [...state.messages, NewMessage]
+                stateCopy.newMessageText = ""
+                return stateCopy
+            }
             return state
         case UPDATE_NEW_MESSAGE_TEXT:
-            state.newMessageText = action.newText
-            return state
+            let stateCopy = {...state}
+            stateCopy.newMessageText = action.newText
+            return stateCopy
         default:
             return state
-        }
+    }
 }
 
 type AllActionType =
     | ReturnType<typeof addMessageActionCreator>
     | ReturnType<typeof UpdateNewMessageTextActionCreator>
 
-export const addMessageActionCreator = ()=> ({type: ADD_MESSAGE} as const)
-export const UpdateNewMessageTextActionCreator = (MessageText: string)=>
-    ({type: UPDATE_NEW_MESSAGE_TEXT, newText: MessageText}as const)
+export const addMessageActionCreator = () => ({type: ADD_MESSAGE} as const)
+export const UpdateNewMessageTextActionCreator = (MessageText: string) =>
+    ({type: UPDATE_NEW_MESSAGE_TEXT, newText: MessageText} as const)
 
 export default dialogsReducer

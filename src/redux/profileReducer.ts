@@ -13,7 +13,7 @@ export type ProfilePageType = {
 }
 
 
-let initialState = {
+let initialState:ProfilePageType = {
     posts: [
         {id: 1, message: "Hi my friend!", likesCount: 12},
         {id: 2, message: "I am learn React!", likesCount: 100},
@@ -33,14 +33,16 @@ const profileReducer = (state: ProfilePageType = initialState, action: AllAction
         case ADD_POST:
             if (state.newPostText.trim() !==""){
                 let NewPost: PostsType = {id: 6, message: state.newPostText, likesCount: 0}
-                state.posts.unshift(NewPost)
-                state.newPostText = ""
-                return state
+                let stateCopy = {...state}
+                stateCopy.posts = [NewPost,...state.posts]
+                stateCopy.newPostText = ""
+                return stateCopy
             }
             return state
         case UPDATE_NEW_POST_TEXT:
-            state.newPostText = action.newText
-            return state
+            let stateCopy = {...state}
+            stateCopy.newPostText = action.newText
+            return stateCopy
         default:
             return state
     }

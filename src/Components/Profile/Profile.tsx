@@ -3,11 +3,10 @@ import "./Profile.module.css"
 import s from "./Profile.module.css";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
-import {StoreType} from "../../redux/redux-store";
 
 
 type PropsType = {
-    store: StoreType
+    //store: StoreType
 }
 
 
@@ -19,7 +18,6 @@ export const Profile: React.FC<PropsType> = (props) => {
             </div>
             <div className={s.MyPosts}>
                 <MyPostsContainer
-                    store={props.store}
                 />
             </div>
         </div>

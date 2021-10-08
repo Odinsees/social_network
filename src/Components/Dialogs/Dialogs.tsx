@@ -2,36 +2,28 @@ import React, {ChangeEvent, KeyboardEvent} from 'react';
 import s from './Dialogs.module.css'
 import {DialogsItem} from './DialogsItem/DialogsItem';
 import {Message} from './Message/Message';
-import {addMessageActionCreator, DialogsPageType, UpdateNewMessageTextActionCreator} from "../../redux/dialogsReducer";
+import {DialogsPropsType} from "./DialogsContainer";
 
 
-type PropsType = {
-    dialogsState: DialogsPageType
-}
-
-
-export const Dialogs: React.FC<PropsType> = (props) => {
+export const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
     const dialogsHandler = () => props.dialogsState.dialogs.map(d => <DialogsItem id={d.id} name={d.name}/>)
 
     const messagesHandler = () => props.dialogsState.messages.map(m => <Message message={m.message}/>)
 
-   /* let newMessageElement = React.createRef<HTMLTextAreaElement>()*/
-
     let onSendMessageClickHandler = () => {
-            props.store.dispatch(addMessageActionCreator())
+            props.onSendMessage()
     }
 
     let onSendMessageKeyPressHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
         if (event.key === "Enter") {
-            props.store.dispatch(addMessageActionCreator())
+            props.onSendMessage()
         }
     }
 
-    let onMessageTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    let onMessageTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let text = e.target.value
-        let action = UpdateNewMessageTextActionCreator(text)
-        props.store.dispatch(action)
+        props.onMessageTextChange(text)
     }
 
     return (
@@ -45,10 +37,9 @@ export const Dialogs: React.FC<PropsType> = (props) => {
                     <div>
                          <textarea
                              className={s.TextArea}
-                             /*ref={newMessageElement}*/
-                             onChange={onMessageTextChange}
+                             onChange={onMessageTextChangeHandler}
                              onKeyPress={onSendMessageKeyPressHandler}
-                             value={props.dialogsState.newMessageText}
+                             value={props.newMessageText}
                          > </textarea>
                     </div>
                     <div>
