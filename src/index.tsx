@@ -1,4 +1,4 @@
-import {StoreType, store} from "./redux/redux-store";
+import {store} from "./redux/redux-store";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -8,16 +8,18 @@ import {HashRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 
 
+let rerenderEntireThree = () => {
     ReactDOM.render(
-        <React.StrictMode>
             <HashRouter>
                 <Provider store={store}>
                     <App/>
                 </Provider>
-            </HashRouter>
-        </React.StrictMode>,
+            </HashRouter>,
         document.getElementById('root')
     );
+}
+rerenderEntireThree()
+
 
 
 // If you want to start measuring performance in your app, pass a function

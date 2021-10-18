@@ -7,10 +7,15 @@ type LocationType = {
     city: string
 }
 
+type PhotosType = {
+    small:string
+    large:string
+}
+
 export type UserType = {
     id: number
-    photoUrl:string
-    fullName: String
+    photos:PhotosType
+    name: String
     location: LocationType
     status: string
     followStatus: boolean
@@ -22,7 +27,7 @@ export type UsersPageType = {
 
 
 let initialState: UsersPageType = {
-    users:[],
+    users: [],
 }
 
 const userReducer = (state: UsersPageType = initialState, action: AllActionType): UsersPageType => {
@@ -37,12 +42,11 @@ const userReducer = (state: UsersPageType = initialState, action: AllActionType)
                 ...state,
                 users: state.users.map(m => m.id === action.userID ? {...m, followStatus: false} : m)
             }
-        case SET_USER: {
+        case SET_USER:
             return {
                 ...state,
-                users: [...state.users, ...action.users]
+                users: [...action.users, ...state.users]
             }
-        }
         default:
             return state
     }
