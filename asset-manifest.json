@@ -1,27 +1,28 @@
 {
   "files": {
-    "main.css": "/social_network/static/css/main.26e57ee5.chunk.css",
-    "main.js": "/social_network/static/js/main.d337f0da.chunk.js",
-    "main.js.map": "/social_network/static/js/main.d337f0da.chunk.js.map",
-    "runtime-main.js": "/social_network/static/js/runtime-main.be469a27.js",
-    "runtime-main.js.map": "/social_network/static/js/runtime-main.be469a27.js.map",
-    "static/js/2.8d797925.chunk.js": "/social_network/static/js/2.8d797925.chunk.js",
-    "static/js/2.8d797925.chunk.js.map": "/social_network/static/js/2.8d797925.chunk.js.map",
-    "static/js/3.521eb487.chunk.js": "/social_network/static/js/3.521eb487.chunk.js",
-    "static/js/3.521eb487.chunk.js.map": "/social_network/static/js/3.521eb487.chunk.js.map",
+    "main.css": "/social_network/static/css/main.69a45d73.chunk.css",
+    "main.js": "/social_network/static/js/main.3849e5a1.chunk.js",
+    "main.js.map": "/social_network/static/js/main.3849e5a1.chunk.js.map",
+    "runtime-main.js": "/social_network/static/js/runtime-main.d4612e38.js",
+    "runtime-main.js.map": "/social_network/static/js/runtime-main.d4612e38.js.map",
+    "static/js/2.671ee876.chunk.js": "/social_network/static/js/2.671ee876.chunk.js",
+    "static/js/2.671ee876.chunk.js.map": "/social_network/static/js/2.671ee876.chunk.js.map",
+    "static/js/3.c2607d83.chunk.js": "/social_network/static/js/3.c2607d83.chunk.js",
+    "static/js/3.c2607d83.chunk.js.map": "/social_network/static/js/3.c2607d83.chunk.js.map",
     "index.html": "/social_network/index.html",
-    "static/css/main.26e57ee5.chunk.css.map": "/social_network/static/css/main.26e57ee5.chunk.css.map",
-    "static/js/2.8d797925.chunk.js.LICENSE.txt": "/social_network/static/js/2.8d797925.chunk.js.LICENSE.txt",
+    "static/css/main.69a45d73.chunk.css.map": "/social_network/static/css/main.69a45d73.chunk.css.map",
+    "static/js/2.671ee876.chunk.js.LICENSE.txt": "/social_network/static/js/2.671ee876.chunk.js.LICENSE.txt",
     "static/media/Avatar.09bf7bc7.jpg": "/social_network/static/media/Avatar.09bf7bc7.jpg",
+    "static/media/Preloader.8ef006fa.svg": "/social_network/static/media/Preloader.8ef006fa.svg",
     "static/media/ProfileImage.083920a2.jpg": "/social_network/static/media/ProfileImage.083920a2.jpg",
     "static/media/likes.f4a1ad15.svg": "/social_network/static/media/likes.f4a1ad15.svg",
     "static/media/Navbar.module.css": "/social_network/static/media/user.f19a00f9.svg",
     "static/media/pngwing.com.2079388c.png": "/social_network/static/media/pngwing.com.2079388c.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.be469a27.js",
-    "static/js/2.8d797925.chunk.js",
-    "static/css/main.26e57ee5.chunk.css",
-    "static/js/main.d337f0da.chunk.js"
+    "static/js/runtime-main.d4612e38.js",
+    "static/js/2.671ee876.chunk.js",
+    "static/css/main.69a45d73.chunk.css",
+    "static/js/main.3849e5a1.chunk.js"
   ]
 }
