@@ -3,18 +3,17 @@ import "./Profile.module.css"
 import s from "./Profile.module.css";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
-
+import {ProfileType} from "../../redux/profileReducer";
 
 type PropsType = {
-    //store: StoreType
+    profile:ProfileType
 }
 
-
-export const Profile: React.FC<PropsType> = (props) => {
+export const Profile = (props:PropsType) => {
     return (
         <div className={s.Profile}>
             <div className={s.ProfileInfo}>
-                <ProfileInfo/>
+                <ProfileInfo profile={props.profile}/>
             </div>
             <div className={s.MyPosts}>
                 <MyPostsContainer

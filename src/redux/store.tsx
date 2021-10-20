@@ -1,4 +1,4 @@
-import profileReducer, {addPostActionCreator, UpdateNewPostActionCreator} from "./profileReducer";
+import profileReducer, {addPost, updateNewPostText} from "./profileReducer";
 import dialogsReducer, {addMessageActionCreator, UpdateNewMessageTextActionCreator} from "./dialogsReducer";
 
 
@@ -46,13 +46,13 @@ export type StoreType = {
 }
 
 export type ActionsTypes =
-    | ReturnType<typeof addPostActionCreator>
-    | ReturnType<typeof UpdateNewPostActionCreator>
+    | ReturnType<typeof addPost>
+    | ReturnType<typeof updateNewPostText>
     | ReturnType<typeof addMessageActionCreator>
     | ReturnType<typeof UpdateNewMessageTextActionCreator>
 
 
-export let store: StoreType = {
+/*export let store: StoreType = {
     _state: {
         profilePage: {
             posts: [
@@ -103,5 +103,5 @@ export let store: StoreType = {
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
         this._callSubscriber()
     }
-}
+}*/
 

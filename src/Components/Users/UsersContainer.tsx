@@ -1,15 +1,12 @@
 import React from "react";
 import {connect} from "react-redux";
-import {Dispatch} from "redux";
 import {RootReducerType} from "../../redux/redux-store";
-import preloaderIcon from "../../image/Icon/Preloader/Preloader.svg"
 import {
-    followAC,
-    setCurrentPageAC,
-    setTotalUsersCountAC,
-    setUserAC, toggleIsFetchingAC,
-    unFollowAC,
-    UserType
+    followToUser,
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers, toggleIsFetching,
+    unFollowToUser, UserResponseType, UserType,
 } from "../../redux/usersReducer";
 import axios from "axios";
 import {Users} from "./Users";
@@ -37,8 +34,8 @@ export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
 class UsersAPIComponent extends React.Component<UsersPropsType> {
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then((response: any) => {
+        axios.get<UserResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then((response) => {
                 this.props.setUsers(response.data.items)
                 this.props.setTotalUsersCount(+response.data.totalCount)
                 this.props.toggleIsFetching(false)
@@ -48,8 +45,9 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
         this.props.toggleIsFetching(true)
         this.props.setCurrentPage(pageNumber)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
-            .then((response: any) => {
-                this.props.setUsers(response.data.items)
+            .then((response) => {
+                // @ts-ignore
+                this.props.setUsers(response.data.items )
                 this.props.toggleIsFetching(false)
             });
     }
@@ -80,7 +78,7 @@ const mapStateToProps = (state: RootReducerType): MapStateToPropsType => {
         isFetching: state.userReducer.isFetching,
     }
 }
-const mapDispatchToProps = (dispatch: Dispatch):MapDispatchToPropsType => {
+/*const mapDispatchToProps = (dispatch: Dispatch):MapDispatchToPropsType => {
     return {
         followToUser: (userID: number) => {
             dispatch(followAC(userID))
@@ -102,6 +100,13 @@ const mapDispatchToProps = (dispatch: Dispatch):MapDispatchToPropsType => {
         },
     }
 
-}
+}*/
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent)
+export const UsersContainer = connect(mapStateToProps, {
+    followToUser,
+    unFollowToUser,
+    setUsers,
+    setCurrentPage,
+    setTotalUsersCount,
+    toggleIsFetching,
+})(UsersAPIComponent)

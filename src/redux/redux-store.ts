@@ -14,5 +14,7 @@ export type StoreType = typeof store
 
 export let store: Store<RootReducerType> = createStore(rootReducer)
 
+// @ts-ignore
+window.store = store
 
 

@@ -9,6 +9,8 @@ import {Music} from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
 import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./Components/Users/UsersContainer";
+import ProfileContainer from "./Components/Profile/ProfileContainer";
+
 
 
 type PropsType = {
@@ -27,10 +29,9 @@ const App: React.FC<PropsType> = () => {
                         </div>
                         <div className={s.Navbar}>
                             <Navbar/>
-
                         </div>
                         <div className={s.AppContent}>
-                            <Route path='/profile' render={() => <Profile/>}/>
+                            <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
                             <Route path='/dialogs' render={() => <DialogsContainer/>}/>
                             <Route path='/news' component={News}/>
                             <Route path='/music' component={Music}/>
