@@ -2,9 +2,9 @@ import React from 'react';
 import "./ProfileInfo.module.css";
 import s from "./ProfileInfo.module.css";
 import ProfileImage from "./ProfileImage.jpg";
-import Avatar from "./Avatar.jpg"
 import {ProfileType} from "../../../redux/profileReducer";
 import {Preloader} from "../../common/Preloader/Preloader";
+import defaultPhoto from '../../../image/gunter.jpg'
 
 type PropsType = {
     profile:ProfileType
@@ -32,7 +32,7 @@ export const ProfileInfo = (props:PropsType) => {
                             : <span style={{backgroundColor:"red"}}>No</span>}
                         </div>
                     </div>
-                    <img className={s.Avatar} src={props.profile.photos.small} alt=""/>
+                    <img className={s.Avatar} src={props.profile.photos.small ? props.profile.photos.small:defaultPhoto} alt=""/>
                 </div>
             </div>
         )

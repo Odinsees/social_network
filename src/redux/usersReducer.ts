@@ -3,7 +3,7 @@ const UN_FOLLOW_TO_USER = "UN-FOLLOW-TO-USER";
 const SET_USER = "SET-USERS"
 const SET_CURRENT_PAGE = "SET-CURRENT-PAGE"
 const SET_TOTAL_USER_COUNT = "SET-TOTAL-USER-COUNT"
-const TOGGLE_IS_FETCHING = "TOGGLE-IS-FETCHING"
+const TOGGLE_IS_FETCHING = "users-reducer/TOGGLE-IS-FETCHING"
 
 export type UserResponseType = {
     items: UserType[]
@@ -62,7 +62,7 @@ const userReducer = (state: UsersPageType = initialState, action: AllActionType)
         case SET_USER:
             return {
                 ...state,
-                users: [...action.users, ...state.users]
+                users: [...action.users/*, ...state.users*/]
             }
         case SET_CURRENT_PAGE:
             return {
@@ -74,7 +74,7 @@ const userReducer = (state: UsersPageType = initialState, action: AllActionType)
                 ...state,
                 totalUsersCount:action.totalUsersCount
             }
-        case "TOGGLE-IS-FETCHING":
+        case TOGGLE_IS_FETCHING:
             return {
                 ...state,
                 isFetching:action.isFetching

@@ -32,28 +32,28 @@ export const Users = (props: PropsType) => {
                 >{p}</span>
             })}
 
-            {props.users.map((m: UserType) =>
-                <div className={s.UserBox} key={m.id}>
+            {props.users.map((user: UserType) =>
+                <div className={s.UserBox} key={user.id}>
                     <div className={s.AvaAndButton}>
-                        <NavLink className={s.Avatar} to={"/profile/" + m.id} >
-                            <img src={m.photos.small !== null ? m.photos.small : userPhoto}
+                        <NavLink className={s.Avatar} to={"/profile/" + user.id} >
+                            <img src={user.photos.small !== null ? user.photos.small : userPhoto}
                                  alt="Ava"/>
                         </NavLink>
                         <br/>
                         <div>
-                            {m.followed
-                                ? <button onClick={() => props.unFollowToUser(m.id)}> Unfollow </button>
-                                : <button onClick={() => props.followToUser(m.id)}> Follow </button>}
+                            {user.followed
+                                ? <button onClick={() => props.unFollowToUser(user.id)}> Unfollow </button>
+                                : <button onClick={() => props.followToUser(user.id)}> Follow </button>}
                         </div>
                     </div>
                     <div className={s.UserInfo}>
                         <div className={s.UserInfoTop}>
-                            <div className={s.FullName}>{m.name}</div>
-                            <div className={s.LocationCountry}>{'m.location.country'}</div>
+                            <div className={s.FullName}>{user.name}</div>
+                            <div className={s.LocationCountry}>{'user.location.country'}</div>
                         </div>
                         <div className={s.UserInfoBottom}>
-                            <div className={s.Status}>{m.status}</div>
-                            <div className={s.LocationCity}>{'m.location.city'}</div>
+                            <div className={s.Status}>{user.status}</div>
+                            <div className={s.LocationCity}>{'user.location.city'}</div>
                         </div>
                     </div>
                     <br/>

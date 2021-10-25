@@ -1,31 +1,25 @@
 import React from 'react';
 import s from './App.module.css';
 import {Redirect, Route, Switch} from "react-router-dom";
-import {Header} from "./Components/Header/Header";
 import {Navbar} from "./Components/Navbar/Navbar";
-import {Profile} from "./Components/Profile/Profile";
 import {News} from "./Components/News/News";
 import {Music} from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
 import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./Components/Users/UsersContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
+import {HeaderContainer} from "./Components/Header/HeaderContainer";
 
 
 
-type PropsType = {
-    //store: StoreType
-}
-
-
-const App: React.FC<PropsType> = () => {
+const App: React.FC = () => {
     return (
             <div className={s.colorWrapper}>
                 <Switch>
                     <Route path={'/'} exact render={() => <Redirect to={'/profile'}/>}/>
                     <div className={s.Wrapper}>
                         <div className={s.Header}>
-                            <Header/>
+                            <HeaderContainer/>
                         </div>
                         <div className={s.Navbar}>
                             <Navbar/>

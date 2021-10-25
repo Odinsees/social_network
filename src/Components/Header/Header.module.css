@@ -1,23 +1,31 @@
 
 .Header{
     width: 100%;
-    padding-left: 10px;
     background-color: #c0e4f3;
 
     display: flex;
     align-items: center;
-}
+    justify-content: space-between;
 
-.Header img{
-    width: 30%;
+    padding: 10px;
+}
+.logoBlock{
+    display: flex;
+    font-size: 30px;
+    align-items: center;
+}
+.Title{
+    margin-left: 15px;
+}
+.logoBlock img{
     max-width: 100px;
 }
 
-.Title{
-    width: 50%;
-    margin-left: 15px;
-    font-size: 30px;
-    /*font-size: 2vw;*/
+
+.loginBlock a{
+    text-decoration: none;
+    color: black;
 }
+
 
 
