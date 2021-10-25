@@ -35,7 +35,7 @@ class HeadersAPIComponent extends React.Component<AuthPropsType> {
                     this.props.setUserDataAC(id, email, login)
                     this.props.toggleIsFetchingAuth(false)
                     axios.get<ProfileType>(`https://social-network.samuraijs.com/api/1.0/profile/` + response.data.data.id)
-                        .then((response) => {debugger
+                        .then((response) => {
                             let userName = response.data.fullName
                             let userPhoto = response.data.photos.small
                             this.props.setUserNameAndPhoto(userName,userPhoto)

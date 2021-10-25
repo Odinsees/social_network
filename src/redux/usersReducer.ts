@@ -5,6 +5,12 @@ const SET_CURRENT_PAGE = "SET-CURRENT-PAGE"
 const SET_TOTAL_USER_COUNT = "SET-TOTAL-USER-COUNT"
 const TOGGLE_IS_FETCHING = "users-reducer/TOGGLE-IS-FETCHING"
 
+export type FollowUserResponseType = {
+    resultCode: number
+    messages: string[],
+    data: {}
+}
+
 export type UserResponseType = {
     items: UserType[]
     totalCount: 15310
