@@ -1,7 +1,7 @@
 import React from 'react';
 import "./ProfileInfo.module.css";
 import s from "./ProfileInfo.module.css";
-import ProfileImage from "./ProfileImage.jpg";
+import ProfileImage from "../../../image/ProfileImage.jpg";
 import {ProfileType} from "../../../redux/profileReducer";
 import {Preloader} from "../../common/Preloader/Preloader";
 import defaultPhoto from '../../../image/gunter.jpg'

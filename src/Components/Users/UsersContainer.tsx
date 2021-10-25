@@ -6,27 +6,28 @@ import {
     setCurrentPage,
     setTotalUsersCount,
     setUsers, toggleIsFetching,
-    unFollowToUser, UserResponseType, UserType,
+    unFollowToUser,
 } from "../../redux/usersReducer";
 import axios from "axios";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
+import {getUsers, UserResponseType, UserType} from "../../api/api";
 
 type MapStateToPropsType = {
     users: UserType[]
-    pageSize:number
-    totalUsersCount:number
-    currentPage:number
-    isFetching:boolean
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+    isFetching: boolean
 }
 
 type MapDispatchToPropsType = {
-    followToUser:(userID: number)=>void
+    followToUser: (userID: number) => void
     unFollowToUser: (userID: number) => void
     setUsers: (users: UserType[]) => void
-    setCurrentPage: (currentPage:number) => void
-    setTotalUsersCount: (totalUsersCount:number) =>void
-    toggleIsFetching:(newToggleValue:boolean) => void
+    setCurrentPage: (currentPage: number) => void
+    setTotalUsersCount: (totalUsersCount: number) => void
+    toggleIsFetching: (newToggleValue: boolean) => void
 }
 
 export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
@@ -34,27 +35,34 @@ export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
 class UsersAPIComponent extends React.Component<UsersPropsType> {
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        axios.get<UserResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {withCredentials: true, headers: {'API-KEY': '1734c197-25c0-4bdd-9d52-5f9220f3c903'}})
+        getUsers(this.props.currentPage, this.props.pageSize)
             .then((response) => {
                 this.props.setUsers(response.data.items)
                 this.props.setTotalUsersCount(+response.data.totalCount)
                 this.props.toggleIsFetching(false)
             });
     }
+
     onPageChanged = (pageNumber: number) => {
         this.props.toggleIsFetching(true)
         this.props.setCurrentPage(pageNumber)
-        axios.get<UserResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {withCredentials: true, headers: {'API-KEY': '1734c197-25c0-4bdd-9d52-5f9220f3c903'}})
+        axios.get<UserResponseType>(
+            `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`,
+            {
+                withCredentials: true,
+                headers: {'API-KEY': '1734c197-25c0-4bdd-9d52-5f9220f3c903'}
+            })
             .then((response) => {
-                this.props.setUsers(response.data.items )
+                this.props.setUsers(response.data.items)
                 this.props.toggleIsFetching(false)
             });
     }
+
     render() {
         return <>
             {this.props.isFetching
                 ? <Preloader/>
-                :<Users
+                : <Users
                     currentPage={this.props.currentPage}
                     totalUsersCount={this.props.totalUsersCount}
                     pageSize={this.props.pageSize}
@@ -69,7 +77,7 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
 }
 
 const mapStateToProps = (state: RootReducerType): MapStateToPropsType => {
-    return{
+    return {
         users: state.userReducer.users,
         pageSize: state.userReducer.pageSize,
         totalUsersCount: state.userReducer.totalUsersCount,

@@ -1,9 +1,9 @@
 import React from "react";
 import s from './Users.module.css'
 import userPhoto from "../../image/gunter.jpg"
-import {FollowUserResponseType, UserResponseType, UserType} from "../../redux/usersReducer";
 import {NavLink} from 'react-router-dom';
 import axios from "axios";
+import {FollowUserResponseType, UserType} from "../../api/api";
 
 type PropsType = {
     currentPage: number

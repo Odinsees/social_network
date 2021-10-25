@@ -1,3 +1,5 @@
+import {UserType} from "../api/api";
+
 const FOLLOW_TO_USER = "FOLLOW-TO-USER";
 const UN_FOLLOW_TO_USER = "UN-FOLLOW-TO-USER";
 const SET_USER = "SET-USERS"
@@ -5,37 +7,6 @@ const SET_CURRENT_PAGE = "SET-CURRENT-PAGE"
 const SET_TOTAL_USER_COUNT = "SET-TOTAL-USER-COUNT"
 const TOGGLE_IS_FETCHING = "users-reducer/TOGGLE-IS-FETCHING"
 
-export type FollowUserResponseType = {
-    resultCode: number
-    messages: string[],
-    data: {}
-}
-
-export type UserResponseType = {
-    items: UserType[]
-    totalCount: 15310
-    error: string
-}
-
-type PhotosType = {
-    small:string
-    large:string
-}
-
-/*type LocationType = {
-    country: string
-    city: string
-}*/
-
-export type UserType = {
-    name: string
-    id: number
-    uniqueUrlName: string
-    photos: PhotosType
-    status: string
-    followed: boolean
-    /*location: LocationType*/
-}
 
 export type UsersPageType = {
     users: UserType[]
