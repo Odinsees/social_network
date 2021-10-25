@@ -12,7 +12,6 @@ export type AuthStateType = {
     userPhoto:string | null
 }
 
-
 let initialState: AuthStateType = {
     userId: null,
     email: null,

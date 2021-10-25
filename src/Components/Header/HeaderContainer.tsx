@@ -1,10 +1,9 @@
 import React from 'react';
 import {Header} from "./Header";
-import axios from "axios";
 import {connect} from "react-redux";
 import {setAuthUserData, setUserNameAndPhoto, toggleIsFetchingAuth} from "../../redux/auth-reducer";
 import {RootReducerType} from "../../redux/redux-store";
-import {authAPI, AuthResponseType, usersAPI} from "../../api/api";
+import {authAPI, usersAPI} from "../../api/api";
 
 type MapStateToPropsType = {
     login: string | null
@@ -19,8 +18,8 @@ type MapDispatchToPropsType = {
     toggleIsFetchingAuth: (newToggleValue: boolean) => void
     setUserNameAndPhoto: (userName: string, userPhoto: string,) => void
 }
-export type AuthPropsType = MapStateToPropsType & MapDispatchToPropsType
 
+export type AuthPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 class HeadersAPIComponent extends React.Component<AuthPropsType> {
 
