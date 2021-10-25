@@ -35,7 +35,7 @@ export type PostsType = {
 export type ProfilePageType = {
     posts: PostsType[]
     newPostText: string
-    profile: any | ProfileType
+    profile: null | ProfileType
 }
 
 

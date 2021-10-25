@@ -2,18 +2,6 @@ const SET_USER_DATA = "auth-reducer/SET-USER-DATA";
 const TOGGLE_IS_FETCHING_AUTH = "auth-reducer/TOGGLE-IS-FETCHING"
 const SET_USER_NAME_AND_PHOTO = "auth-reducer/SET-USER-NAME-AND-PHOTO"
 
-type AuthResponseDataType = {
-    id: number
-    login: string
-    email: string
-}
-export type AuthResponseType = {
-    data: AuthResponseDataType
-    messages: [],
-    fieldsErrors: [],
-    resultCode: number
-}
-
 export type AuthStateType = {
     userId: number | null
     email: string | null

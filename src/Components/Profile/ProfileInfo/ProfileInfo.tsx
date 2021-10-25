@@ -7,7 +7,7 @@ import {Preloader} from "../../common/Preloader/Preloader";
 import defaultPhoto from '../../../image/gunter.jpg'
 
 type PropsType = {
-    profile:ProfileType
+    profile:ProfileType | null
 }
 
 export const ProfileInfo = (props:PropsType) => {

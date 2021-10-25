@@ -8,10 +8,9 @@ import {
     setUsers, toggleIsFetching,
     unFollowToUser,
 } from "../../redux/usersReducer";
-import axios from "axios";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
-import {getUsers, UserResponseType, UserType} from "../../api/api";
+import {usersAPI, UserType} from "../../api/api";
 
 type MapStateToPropsType = {
     users: UserType[]
@@ -35,10 +34,10 @@ export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
 class UsersAPIComponent extends React.Component<UsersPropsType> {
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        getUsers(this.props.currentPage, this.props.pageSize)
-            .then((response) => {
-                this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(+response.data.totalCount)
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
+            .then((data) => {
+                this.props.setUsers(data.items)
+                this.props.setTotalUsersCount(+data.totalCount)
                 this.props.toggleIsFetching(false)
             });
     }
@@ -46,18 +45,12 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
     onPageChanged = (pageNumber: number) => {
         this.props.toggleIsFetching(true)
         this.props.setCurrentPage(pageNumber)
-        axios.get<UserResponseType>(
-            `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`,
-            {
-                withCredentials: true,
-                headers: {'API-KEY': '1734c197-25c0-4bdd-9d52-5f9220f3c903'}
-            })
-            .then((response) => {
-                this.props.setUsers(response.data.items)
+        usersAPI.getUsers(pageNumber, this.props.pageSize)
+            .then((data) => {
+                this.props.setUsers(data.items)
                 this.props.toggleIsFetching(false)
             });
     }
-
     render() {
         return <>
             {this.props.isFetching

@@ -2,9 +2,9 @@ import React from 'react';
 import {Header} from "./Header";
 import axios from "axios";
 import {connect} from "react-redux";
-import {AuthResponseType, setAuthUserData, setUserNameAndPhoto, toggleIsFetchingAuth} from "../../redux/auth-reducer";
+import {setAuthUserData, setUserNameAndPhoto, toggleIsFetchingAuth} from "../../redux/auth-reducer";
 import {RootReducerType} from "../../redux/redux-store";
-import {ProfileType} from "../../redux/profileReducer";
+import {authAPI, AuthResponseType, usersAPI} from "../../api/api";
 
 type MapStateToPropsType = {
     login: string | null
@@ -26,18 +26,16 @@ class HeadersAPIComponent extends React.Component<AuthPropsType> {
 
     componentDidMount() {
         this.props.toggleIsFetchingAuth(true)
-        axios.get<AuthResponseType>(`https://social-network.samuraijs.com/api/1.0//auth/me`, {
-            withCredentials: true
-        })
-            .then((response) => {
-                if (response.data.resultCode === 0) {
-                    let {id, email, login,} = response.data.data
+        authAPI.checkedAuth()
+            .then((data) => {
+                if (data.resultCode === 0) {
+                    let {id, email, login,} = data.data
                     this.props.setUserDataAC(id, email, login)
                     this.props.toggleIsFetchingAuth(false)
-                    axios.get<ProfileType>(`https://social-network.samuraijs.com/api/1.0/profile/` + response.data.data.id)
-                        .then((response) => {
-                            let userName = response.data.fullName
-                            let userPhoto = response.data.photos.small
+                    usersAPI.getUser(data.data.id)
+                        .then((data) => {
+                            let userName = data.fullName
+                            let userPhoto = data.photos.small
                             this.props.setUserNameAndPhoto(userName,userPhoto)
                         });
                 } else {

@@ -3,22 +3,22 @@ import "./Profile.module.css"
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {RootReducerType} from "../../redux/redux-store";
-import axios from "axios";
 import {ProfileType, setUserProfile} from "../../redux/profileReducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
+import {usersAPI} from "../../api/api";
 
 type PathParamType = {
     userId?: string | undefined
 }
 
 type MapStateToPropsType = {
-    profile: ProfileType
+    profile: null | ProfileType
 }
 
 type MapDispatchToPropsType = {
     setUserProfile: (data: ProfileType) => void
 }
-type ProfilePagePropsType = RouteComponentProps<PathParamType> & MapStateToPropsType & MapDispatchToPropsType //!!!!!
+export type ProfilePagePropsType = RouteComponentProps<PathParamType> & MapStateToPropsType & MapDispatchToPropsType //!!!!!
 
 class ProfileContainer extends React.Component<ProfilePagePropsType> {
 
@@ -27,9 +27,9 @@ class ProfileContainer extends React.Component<ProfilePagePropsType> {
         if (!userId) {
             userId =  '2'
         }
-        axios.get<ProfileType>(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
-            .then((response) => {
-                this.props.setUserProfile(response.data)
+        usersAPI.getUserForProfileRender(+userId)
+            .then((data) => {
+                this.props.setUserProfile(data)
             });
     }
 

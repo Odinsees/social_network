@@ -4,12 +4,10 @@ import s from "./Profile.module.css";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import {ProfileType} from "../../redux/profileReducer";
+import {ProfilePagePropsType} from "./ProfileContainer";
 
-type PropsType = {
-    profile:ProfileType
-}
 
-export const Profile = (props:PropsType) => {
+export const Profile = (props:ProfilePagePropsType) => {
     return (
         <div className={s.Profile}>
             <div className={s.ProfileInfo}>
