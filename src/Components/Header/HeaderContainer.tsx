@@ -1,9 +1,8 @@
 import React from 'react';
 import {Header} from "./Header";
 import {connect} from "react-redux";
-import {setAuthUserData, setUserNameAndPhoto, toggleIsFetchingAuth} from "../../redux/auth-reducer";
+import {checkedAuth} from "../../redux/auth-reducer";
 import {RootReducerType} from "../../redux/redux-store";
-import {authAPI, usersAPI} from "../../api/api";
 
 type MapStateToPropsType = {
     login: string | null
@@ -14,9 +13,7 @@ type MapStateToPropsType = {
 }
 
 type MapDispatchToPropsType = {
-    setUserDataAC: (userId: number, email: string, login: string,) => void
-    toggleIsFetchingAuth: (newToggleValue: boolean) => void
-    setUserNameAndPhoto: (userName: string, userPhoto: string,) => void
+    checkedAuth:()=>void
 }
 
 export type AuthPropsType = MapStateToPropsType & MapDispatchToPropsType
@@ -24,24 +21,7 @@ export type AuthPropsType = MapStateToPropsType & MapDispatchToPropsType
 class HeadersAPIComponent extends React.Component<AuthPropsType> {
 
     componentDidMount() {
-        this.props.toggleIsFetchingAuth(true)
-        authAPI.checkedAuth()
-            .then((data) => {
-                if (data.resultCode === 0) {
-                    let {id, email, login,} = data.data
-                    this.props.setUserDataAC(id, email, login)
-                    this.props.toggleIsFetchingAuth(false)
-                    usersAPI.getUser(data.data.id)
-                        .then((data) => {
-                            let userName = data.fullName
-                            let userPhoto = data.photos.small
-                            this.props.setUserNameAndPhoto(userName,userPhoto)
-                        });
-                } else {
-
-                }
-
-            });
+        this.props.checkedAuth()
     }
 
     render() {
@@ -62,8 +42,7 @@ const mapStateToProps = (state: RootReducerType): MapStateToPropsType => {
 }
 
 export const HeaderContainer = connect(mapStateToProps, {
-    setUserDataAC: setAuthUserData,
-    toggleIsFetchingAuth, setUserNameAndPhoto
+    checkedAuth
 })(HeadersAPIComponent)
 
 

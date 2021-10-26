@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
+
 const ADD_POST = "profile-reducer/ADD-POST";
 const UPDATE_NEW_POST_TEXT = "profile-reducer/UPDATE-NEW-POST-TEXT";
 const SET_USER_PROFILE = "profile-reducer/SET-USER-PROFILE";
@@ -88,5 +91,15 @@ export const updateNewPostText = (PostText: string) =>
     ({type: UPDATE_NEW_POST_TEXT, newText: PostText} as const)
 export const setUserProfile = (profile:ProfileType) =>
     ({type: SET_USER_PROFILE, profile} as const)
+
+
+export const getUserForProfileRender = (userID:number) =>{
+    return (dispatch:Dispatch)=>{
+        usersAPI.getUserForProfileRender(userID)
+            .then((data) => {
+                dispatch(setUserProfile(data))
+            });
+    }
+}
 
 export default profileReducer

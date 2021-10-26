@@ -24,7 +24,10 @@ export const Header = (props: AuthPropsType) => {
                                  src={props.userPhoto ? props.userPhoto : defaultLogo}
                                  alt=""/>
                         </div>
-                        : <NavLink to={'/login'}>LOGIN</NavLink>
+                        : <div>
+                            <NavLink to={'/login'}>LOGIN</NavLink>
+                        </div>
+
                     }
                 </div>
             </div>
