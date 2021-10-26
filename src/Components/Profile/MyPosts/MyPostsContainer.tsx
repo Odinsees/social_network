@@ -1,9 +1,11 @@
 import React from 'react';
 import "./MyPosts.module.css"
-import {addPost, PostsType, updateNewPostText} from "../../../redux/profileReducer";
+import {addPost, getUserForProfileRender, PostsType, updateNewPostText} from "../../../redux/profileReducer";
 import {MyPosts} from "./MyPosts";
 import {RootReducerType} from "../../../redux/redux-store";
 import {connect} from "react-redux";
+import {withRouter} from "react-router-dom";
+import {WithAuthRedirect} from "../../../hoc/WithAuthRedirect";
 
 
 type MapStateToPropsType = {
@@ -25,11 +27,11 @@ let mapStateToProps = (state:RootReducerType):MapStateToPropsType =>{
     }
 }
 
-export const MyPostsContainer = connect(
+export const MyPostsContainer = withRouter(WithAuthRedirect(connect(
     mapStateToProps,
     {
         addPost,
         updateNewPostText,
     }
-    )(MyPosts)
+    )(MyPosts)))
 

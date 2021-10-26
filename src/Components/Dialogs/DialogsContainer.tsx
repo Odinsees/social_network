@@ -6,31 +6,34 @@ import {
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {RootReducerType} from "../../redux/redux-store";
-import {Dispatch} from "redux";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+
 
 
 type MapStateToPropsType = {
     dialogsState: DialogsPageType
+    isAuth:boolean
 }
 
 type MapDispatchToPropsType = {
-    onSendMessage:()=>void
-    onMessageTextChange:(newMessageText:string)=>void
+    addMessageActionCreator:()=>void
+    UpdateNewMessageTextActionCreator:(text:string)=>void
 }
 
 export type DialogsPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 let mapStateToProps = (state:RootReducerType):MapStateToPropsType =>{
     return {
-        dialogsState: state.dialogsReducer
-    }
-}
-let mapDispatchToProps = (dispatch:Dispatch):MapDispatchToPropsType =>{
-    return {
-        onSendMessage: () => {dispatch(addMessageActionCreator())},
-        onMessageTextChange: (newMessageText:string) => {dispatch(UpdateNewMessageTextActionCreator(newMessageText))}
+        dialogsState: state.dialogsReducer,
+        isAuth: state.authReducer.isAuth,
     }
 }
 
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+let AuthRedirectComponent = WithAuthRedirect(Dialogs)
+
+export const DialogsContainer = connect(mapStateToProps,
+    {
+        addMessageActionCreator,
+        UpdateNewMessageTextActionCreator,
+    })(AuthRedirectComponent)
 

@@ -12,18 +12,18 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
     const messagesHandler = () => props.dialogsState.messages.map(m => <Message key={m.id} message={m.message}/>)
 
     let onSendMessageClickHandler = () => {
-            props.onSendMessage()
+        props.addMessageActionCreator()
     }
 
     let onSendMessageKeyPressHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
         if (event.key === "Enter") {
-            props.onSendMessage()
+            props.addMessageActionCreator()
         }
     }
 
     let onMessageTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let text = e.target.value
-        props.onMessageTextChange(text)
+        props.UpdateNewMessageTextActionCreator(text)
     }
 
     return (
@@ -49,5 +49,6 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
             </div>
         </div>
     )
+
 }
 

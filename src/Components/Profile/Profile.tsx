@@ -3,7 +3,6 @@ import "./Profile.module.css"
 import s from "./Profile.module.css";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
-import {ProfileType} from "../../redux/profileReducer";
 import {ProfilePagePropsType} from "./ProfileContainer";
 
 
@@ -14,8 +13,7 @@ export const Profile = (props:ProfilePagePropsType) => {
                 <ProfileInfo profile={props.profile}/>
             </div>
             <div className={s.MyPosts}>
-                <MyPostsContainer
-                />
+                <MyPostsContainer/>
             </div>
         </div>
     )

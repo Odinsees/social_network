@@ -29,7 +29,6 @@ export type ProfileType = {
     photos: PhotosType
 }
 
-
 export type PostsType = {
     id: number
     message: string
