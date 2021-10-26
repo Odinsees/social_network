@@ -74,16 +74,16 @@ const userReducer = (state: UsersPageType = initialState, action: AllActionType)
 }
 
 type AllActionType =
-    | ReturnType<typeof followToUser>
-    | ReturnType<typeof unFollowToUser>
+    | ReturnType<typeof followToUserSuccess>
+    | ReturnType<typeof unFollowToUserSuccess>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof changeFollowingInProgress>
 
-export const followToUser = (userID: number) => ({type: FOLLOW_TO_USER, userID} as const)
-export const unFollowToUser = (userID: number) => ({type: UN_FOLLOW_TO_USER, userID} as const)
+export const followToUserSuccess = (userID: number) => ({type: FOLLOW_TO_USER, userID} as const)
+export const unFollowToUserSuccess = (userID: number) => ({type: UN_FOLLOW_TO_USER, userID} as const)
 export const setUsers = (users: UserType[]) => ({type: SET_USER, users} as const)
 export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
 export const setTotalUsersCount = (totalUsersCount: number) => ({type: SET_TOTAL_USER_COUNT, totalUsersCount} as const)
@@ -91,6 +91,7 @@ export const toggleIsFetching = (newToggleValue: boolean) => (
     {type: TOGGLE_IS_FETCHING, isFetching: newToggleValue} as const)
 export const changeFollowingInProgress = (isFetching: boolean, userId: number) => (
     {type: FOLLOWING_IN_PROGRESS, isFetching, userId} as const)
+
 
 export const getUsers = (currentPage:number, pageSize:number) => {
     return (dispatch: Dispatch) => {
@@ -111,7 +112,7 @@ export const followUser = (userID:number) => {
         usersAPI.followUser(userID)
             .then((data) => {
                 if (data.resultCode === 0) {
-                    dispatch(followToUser(userID))
+                    dispatch(followToUserSuccess(userID))
                     dispatch(changeFollowingInProgress(false,userID))
                 }
             });
@@ -124,7 +125,7 @@ export const unFollowUser = (userID:number) => {
         usersAPI.unFollowUser(userID)
             .then((data) => {
                 if (data.resultCode === 0) {
-                    dispatch(unFollowToUser(userID))
+                    dispatch(unFollowToUserSuccess(userID))
                     dispatch(changeFollowingInProgress(false, userID))
                 }
             });

@@ -6,13 +6,13 @@ import {UserType} from "../../api/api";
 
 type PropsType = {
     currentPage: number
-    onPageChanged: (pageNumber: number) => void
     totalUsersCount: number
     pageSize: number
-    unFollowUser: (userID: number) => void
-    followUser: (userID: number) => void
     users: UserType[]
     followingInProgress: number[]
+    unFollowUser: (userID: number) => void
+    followUser: (userID: number) => void
+    onPageChanged: (pageNumber: number) => void
 }
 
 export const Users = (props: PropsType) => {
