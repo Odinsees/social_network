@@ -1,4 +1,5 @@
-import {UserType} from "../api/api";
+import {usersAPI, UserType} from "../api/api";
+import {Dispatch} from "redux";
 
 const FOLLOW_TO_USER = "users-reducer/FOLLOW-TO-USER";
 const UN_FOLLOW_TO_USER = "users-reducer/UN-FOLLOW-TO-USER";
@@ -91,5 +92,43 @@ export const toggleIsFetching = (newToggleValue: boolean) => (
 export const changeFollowingInProgress = (isFetching: boolean, userId: number) => (
     {type: FOLLOWING_IN_PROGRESS, isFetching, userId} as const)
 
+export const getUsers = (currentPage:number, pageSize:number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(toggleIsFetching(true))
+        usersAPI.getUsers(currentPage, pageSize)
+            .then((data) => {
+                dispatch(setUsers(data.items))
+                dispatch(setTotalUsersCount(+data.totalCount))
+                dispatch(toggleIsFetching(false))
+                dispatch(setCurrentPage(currentPage))
+            });
+    }
+}
+
+export const followUser = (userID:number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(changeFollowingInProgress(true,userID))
+        usersAPI.followUser(userID)
+            .then((data) => {
+                if (data.resultCode === 0) {
+                    dispatch(followToUser(userID))
+                    dispatch(changeFollowingInProgress(false,userID))
+                }
+            });
+    }
+}
+
+export const unFollowUser = (userID:number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(changeFollowingInProgress(true, userID))
+        usersAPI.unFollowUser(userID)
+            .then((data) => {
+                if (data.resultCode === 0) {
+                    dispatch(unFollowToUser(userID))
+                    dispatch(changeFollowingInProgress(false, userID))
+                }
+            });
+    }
+}
 
 export default userReducer

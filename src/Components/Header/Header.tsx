@@ -14,7 +14,7 @@ export const Header = (props: AuthPropsType) => {
             : <div className={s.Header}>
                 <div className={s.logoBlock}>
                     <img src={imageSrc} alt="logo"/>
-                    <span className={s.Title}>IT SocialNetwork</span>
+                    <span className={s.Title}>SocialNetwork</span>
                 </div>
                 <div className={s.loginBlock}>
                     {props.isAuth
