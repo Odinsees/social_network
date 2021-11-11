@@ -12,7 +12,6 @@ export type MessagesType = {
 export type DialogsPageType = {
     dialogs: DialogsType[]
     messages: MessagesType[]
-    newMessageText: string
 }
 
 let initialState: DialogsPageType = {
@@ -30,26 +29,19 @@ let initialState: DialogsPageType = {
         {id: 4, message: "Yo"},
         {id: 5, message: "Hello bro"}
     ],
-    newMessageText: ""
 }
 
 const dialogsReducer = (state: DialogsPageType = initialState, action: AllActionType): DialogsPageType => {
     switch (action.type) {
         case ADD_MESSAGE:
-            if (state.newMessageText.trim() !== "") {
-                let NewMessage: MessagesType = {id: 5, message: state.newMessageText}
+            if (action.newMessageText.trim() !== "") {
+                let NewMessage: MessagesType = {id: 5, message: action.newMessageText}
                 return  {
                     ...state,
                     messages: [...state.messages, NewMessage],
-                    newMessageText:''
                 }
             }
             return state
-        case UPDATE_NEW_MESSAGE_TEXT:
-            return  {
-                ...state,
-                newMessageText: action.newText
-            }
         default:
             return state
     }
@@ -57,10 +49,8 @@ const dialogsReducer = (state: DialogsPageType = initialState, action: AllAction
 
 type AllActionType =
     | ReturnType<typeof addMessageActionCreator>
-    | ReturnType<typeof UpdateNewMessageTextActionCreator>
 
-export const addMessageActionCreator = () => ({type: ADD_MESSAGE} as const)
-export const UpdateNewMessageTextActionCreator = (MessageText: string) =>
-    ({type: UPDATE_NEW_MESSAGE_TEXT, newText: MessageText} as const)
+export const addMessageActionCreator = (newMessageText:string) => ({type: ADD_MESSAGE, newMessageText} as const)
+
 
 export default dialogsReducer

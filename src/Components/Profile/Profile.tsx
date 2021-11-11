@@ -10,7 +10,11 @@ export const Profile = (props:ProfilePagePropsType) => {
     return (
         <div className={s.Profile}>
             <div className={s.ProfileInfo}>
-                <ProfileInfo profile={props.profile}/>
+                <ProfileInfo
+                    profile={props.profile}
+                    status={props.status}
+                    updateStatusForProfileRender={props.updateStatusForProfileRender}
+                />
             </div>
             <div className={s.MyPosts}>
                 <MyPostsContainer/>

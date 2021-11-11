@@ -1,12 +1,12 @@
 import React from 'react';
 import {
     addMessageActionCreator, DialogsPageType,
-    UpdateNewMessageTextActionCreator
 } from "../../redux/dialogsReducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {RootReducerType} from "../../redux/redux-store";
 import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {compose} from "redux";
 
 
 
@@ -16,8 +16,7 @@ type MapStateToPropsType = {
 }
 
 type MapDispatchToPropsType = {
-    addMessageActionCreator:()=>void
-    UpdateNewMessageTextActionCreator:(text:string)=>void
+    addMessageActionCreator:(newMessageText:string)=>void
 }
 
 export type DialogsPropsType = MapStateToPropsType & MapDispatchToPropsType
@@ -29,11 +28,13 @@ let mapStateToProps = (state:RootReducerType):MapStateToPropsType =>{
     }
 }
 
-let AuthRedirectComponent = WithAuthRedirect(Dialogs)
 
-export const DialogsContainer = connect(mapStateToProps,
-    {
-        addMessageActionCreator,
-        UpdateNewMessageTextActionCreator,
-    })(AuthRedirectComponent)
+export default compose<React.ComponentType>(
+    connect(mapStateToProps,
+        {
+            addMessageActionCreator,
+        }),
+    WithAuthRedirect,
+)(Dialogs)
+
 

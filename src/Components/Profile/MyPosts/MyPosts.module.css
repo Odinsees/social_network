@@ -28,7 +28,6 @@ textarea{
     display: grid;
     grid-auto-columns: 1fr;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 0.5fr;
     gap: 0 0;
     grid-template-areas:
     "TextArea TextArea"
@@ -50,8 +49,6 @@ textarea{
 
 .AddPostButton{
     grid-area: AddPostButton;
-
-
     margin: 20px 0 20px 0;
     text-decoration: none;
     display: inline-block;

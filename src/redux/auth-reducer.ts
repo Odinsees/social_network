@@ -69,6 +69,7 @@ export const setUserNameAndPhoto = (userFullName:string, userPhoto:string,) => {
     } as const
 }
 
+
 export const checkedAuth = () =>{
     return (dispatch:Dispatch) =>{
         dispatch(toggleIsFetchingAuth(true))
@@ -89,6 +90,17 @@ export const checkedAuth = () =>{
                 }
 
             });
+    }
+}
+
+export const loginUser = (login:string, password:string, rememberMe:boolean) =>{
+    return (dispatch:Dispatch) =>{
+        authAPI.login(login, password, rememberMe)
+            .then((result)=>{
+                if (result.resultCode === 0){
+
+                }
+            })
     }
 }
 

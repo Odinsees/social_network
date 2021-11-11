@@ -1,28 +1,18 @@
-import React, {ChangeEvent, KeyboardEvent} from 'react';
+import React from 'react';
 import {Post} from './Post/Post';
 import "./MyPosts.module.css"
 import s from "./MyPosts.module.css";
 import {MyPostPropsType} from "./MyPostsContainer";
+import {AddNewPostReduxForm, FormDataTypeForNewPostText} from "./AddNewPostForm";
 
 
 
-export const MyPosts: React.FC<MyPostPropsType> = ({PostsState, newPostText, ...props}) => {
+export const MyPosts: React.FC<MyPostPropsType> = ({PostsState, ...props}) => {
 
     const postsHandler = () => PostsState.map(p => <Post key={p.id} message={p.message} likesCount={p.likesCount}/>)
 
-    let onClickHandler = () => {
-        props.addPost()
-    }
-
-    let onKeyPressHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
-        if (event.key === "Enter") {
-            props.addPost()
-        }
-    }
-
-    let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let text = e.target.value
-        props.updateNewPostText(text)
+    const addNewPost = (data:FormDataTypeForNewPostText) =>{
+        props.addPost(data.newPostText)
     }
 
     return (
@@ -31,14 +21,9 @@ export const MyPosts: React.FC<MyPostPropsType> = ({PostsState, newPostText, ...
                 <h2>My posts</h2>
             </div>
             <div className={s.NewPost}>
-                    <textarea
-                        className={s.TextArea}
-                        //ref={newPostElement}
-                        onKeyPress={onKeyPressHandler}
-                        onChange={onPostChange}
-                        value={newPostText}
-                    />
-                <button className={s.AddPostButton} onClick={onClickHandler}> send</button>
+                <AddNewPostReduxForm
+                    onSubmit={addNewPost}
+                />
             </div>
             <div className={s.Posts}>
                 {postsHandler()}

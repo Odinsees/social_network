@@ -5,11 +5,11 @@ import {Navbar} from "./Components/Navbar/Navbar";
 import {News} from "./Components/News/News";
 import {Music} from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
-import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
 import {UsersContainer} from "./Components/Users/UsersContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
 import {HeaderContainer} from "./Components/Header/HeaderContainer";
 import {Login} from "./Components/Login/Login";
+import DialogsContainer from "./Components/Dialogs/DialogsContainer";
 
 
 
@@ -27,7 +27,7 @@ const App: React.FC = () => {
                             <Navbar/>
                         </div>
                         <div className={s.AppContent}>
-                            <Route  path='/profile/:userId?' render={() => <ProfileContainer/>}/>
+                            <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
                             <Route exact path='/dialogs' render={() => <DialogsContainer/>}/>
                             <Route path='/news' component={News}/>
                             <Route path='/music' component={Music}/>

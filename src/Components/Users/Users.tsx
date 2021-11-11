@@ -25,6 +25,7 @@ export const Users = (props: PropsType) => {
 
     return (
         <div style={{width: "100vh"}}>
+
             {pages.map(p => {
                 return <span
                     key={p}
@@ -71,3 +72,4 @@ export const Users = (props: PropsType) => {
         </div>
     )
 }
+

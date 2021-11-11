@@ -41,6 +41,11 @@ export type AuthResponseType = {
     resultCode: number
 }
 
+export type UserStatusResponseType = string | null
+export type updateUserStatusResponse = {
+
+}
+
 
 const instance = axios.create({
     withCredentials: true,
@@ -77,19 +82,38 @@ export const usersAPI = {
                 .then(response => response.data)
         )
     },
+}
 
+export const profileAPI = {
     getUserForProfileRender(userId: number) {
         return (
             instance.get<ProfileType>(`profile/` + userId)
                 .then(response => response.data)
         )
     },
+    getUserStatusForProfileRender(userId: number) {
+        return instance.get<UserStatusResponseType>(`profile/status/` + userId)
+    },
+    updateStatus(newStatusText: string) {
+        return (
+            instance.put<updateUserStatusResponse>(`profile/status/`, {status: newStatusText})
+        )
+    }
 }
+
 
 export const authAPI = {
     checkedAuth() {
         return (instance.get<AuthResponseType>(`auth/me`)
             .then(response => response.data))
+    },
+    login(login:string, password:string, rememberMe:boolean){
+        return instance.post<any>(`auth/login`,{
+            email:login,
+            password:password,
+            rememberMe:rememberMe,
+        })
+            .then(response => response.data)
     }
 }
 

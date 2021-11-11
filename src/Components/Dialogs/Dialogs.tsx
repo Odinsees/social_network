@@ -1,8 +1,9 @@
-import React, {ChangeEvent, KeyboardEvent} from 'react';
+import React from 'react';
 import s from './Dialogs.module.css'
 import {DialogsItem} from './DialogsItem/DialogsItem';
 import {Message} from './Message/Message';
 import {DialogsPropsType} from "./DialogsContainer";
+import {AddMessageReduxForm, FormDataTypeForDialogsNewMessage} from "./AddMessageForm";
 
 
 export const Dialogs: React.FC<DialogsPropsType> = (props) => {
@@ -11,19 +12,9 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
 
     const messagesHandler = () => props.dialogsState.messages.map(m => <Message key={m.id} message={m.message}/>)
 
-    let onSendMessageClickHandler = () => {
-        props.addMessageActionCreator()
-    }
 
-    let onSendMessageKeyPressHandler = (event: KeyboardEvent<HTMLTextAreaElement>) => {
-        if (event.key === "Enter") {
-            props.addMessageActionCreator()
-        }
-    }
-
-    let onMessageTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let text = e.target.value
-        props.UpdateNewMessageTextActionCreator(text)
+    const addNewMessageFromForm = (data:FormDataTypeForDialogsNewMessage) => {
+        props.addMessageActionCreator(data.newMessageText)
     }
 
     return (
@@ -34,17 +25,9 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
             <div className={s.messages}>
                 <div>{messagesHandler()}</div>
                 <div>
-                    <div>
-                         <textarea
-                             className={s.TextArea}
-                             onChange={onMessageTextChangeHandler}
-                             onKeyPress={onSendMessageKeyPressHandler}
-                             value={props.dialogsState.newMessageText}
-                         > </textarea>
-                    </div>
-                    <div>
-                        <button onClick={onSendMessageClickHandler}>send</button>
-                    </div>
+                    <AddMessageReduxForm
+                        onSubmit={addNewMessageFromForm}
+                    />
                 </div>
             </div>
         </div>
