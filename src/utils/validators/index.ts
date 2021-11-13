@@ -1,8 +1,7 @@
 export const requiredFeel = (value: string) => {
-    if (value !== '') {
+    if (value) {
         return
     }
-
     return 'field is required'
 }
 

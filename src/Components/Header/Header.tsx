@@ -5,6 +5,7 @@ import {NavLink} from 'react-router-dom';
 import {AuthPropsType} from "./HeaderContainer";
 import {Preloader} from "../common/Preloader/Preloader";
 import defaultLogo from '../../image/gunter.jpg'
+import {logOutUser} from "../../redux/auth-reducer";
 
 
 export const Header = (props: AuthPropsType) => {
@@ -23,6 +24,9 @@ export const Header = (props: AuthPropsType) => {
                             <img style={{width: '40px', borderRadius:"50%"}}
                                  src={props.userPhoto ? props.userPhoto : defaultLogo}
                                  alt=""/>
+                            <button
+                            onClick = {props.logOutUser}
+                            >LOGOUT</button>
                         </div>
                         : <div>
                             <NavLink to={'/login'}>LOGIN</NavLink>

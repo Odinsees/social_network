@@ -28,6 +28,7 @@ export type ProfileType = {
     fullName: string,
     userId: number,
     photos: PhotosType
+    email:string
 }
 
 export type PostsType = {

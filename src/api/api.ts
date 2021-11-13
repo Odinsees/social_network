@@ -46,6 +46,13 @@ export type updateUserStatusResponse = {
 
 }
 
+type LoginResponseType = {
+    data: {userId: number}
+    fieldsErrors: string[]
+    messages: string[]
+    resultCode: number
+}
+
 
 const instance = axios.create({
     withCredentials: true,
@@ -104,16 +111,18 @@ export const profileAPI = {
 
 export const authAPI = {
     checkedAuth() {
-        return (instance.get<AuthResponseType>(`auth/me`)
-            .then(response => response.data))
+        return (instance.get<AuthResponseType>(`auth/me`))
     },
     login(login:string, password:string, rememberMe:boolean){
-        return instance.post<any>(`auth/login`,{
+        return instance.post<LoginResponseType>(`auth/login`,{
             email:login,
             password:password,
             rememberMe:rememberMe,
         })
-            .then(response => response.data)
+    },
+    logout(){
+        return instance.delete<any>((`auth/login`))
+            .then((response:any) => response)
     }
 }
 

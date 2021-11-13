@@ -1,7 +1,7 @@
 import React from 'react';
 import {Header} from "./Header";
 import {connect} from "react-redux";
-import {checkedAuth} from "../../redux/auth-reducer";
+import {checkedAuth, logOutUser} from "../../redux/auth-reducer";
 import {RootReducerType} from "../../redux/redux-store";
 
 type MapStateToPropsType = {
@@ -14,6 +14,7 @@ type MapStateToPropsType = {
 
 type MapDispatchToPropsType = {
     checkedAuth:()=>void
+    logOutUser:()=>void
 }
 
 export type AuthPropsType = MapStateToPropsType & MapDispatchToPropsType
@@ -42,7 +43,8 @@ const mapStateToProps = (state: RootReducerType): MapStateToPropsType => {
 }
 
 export const HeaderContainer = connect(mapStateToProps, {
-    checkedAuth
+    checkedAuth,
+    logOutUser,
 })(HeadersAPIComponent)
 
 
