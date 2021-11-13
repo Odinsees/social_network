@@ -42,12 +42,10 @@ export type AuthResponseType = {
 }
 
 export type UserStatusResponseType = string | null
-export type updateUserStatusResponse = {
+export type updateUserStatusResponse = {}
 
-}
-
-type LoginResponseType = {
-    data: {userId: number}
+type LoginAndLogoutResponseType = {
+    data: { userId: number }
     fieldsErrors: string[]
     messages: string[]
     resultCode: number
@@ -113,16 +111,15 @@ export const authAPI = {
     checkedAuth() {
         return (instance.get<AuthResponseType>(`auth/me`))
     },
-    login(login:string, password:string, rememberMe:boolean){
-        return instance.post<LoginResponseType>(`auth/login`,{
-            email:login,
-            password:password,
-            rememberMe:rememberMe,
+    login(login: string, password: string, rememberMe: boolean) {
+        return instance.post<LoginAndLogoutResponseType>(`auth/login`, {
+            email: login,
+            password: password,
+            rememberMe: rememberMe,
         })
     },
-    logout(){
-        return instance.delete<any>((`auth/login`))
-            .then((response:any) => response)
+    logout() {
+        return instance.delete<LoginAndLogoutResponseType>((`auth/login`))
     }
 }
 

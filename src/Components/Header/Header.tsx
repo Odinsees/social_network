@@ -1,14 +1,14 @@
 import React from 'react';
 import s from './Header.module.css'
 import imageSrc from "../../image/pngwing.com.png"
-import {NavLink} from 'react-router-dom';
+import {NavLink, Redirect} from 'react-router-dom';
 import {AuthPropsType} from "./HeaderContainer";
 import {Preloader} from "../common/Preloader/Preloader";
 import defaultLogo from '../../image/gunter.jpg'
-import {logOutUser} from "../../redux/auth-reducer";
 
 
 export const Header = (props: AuthPropsType) => {
+
     return (
         props.isFetching
             ? <Preloader/>

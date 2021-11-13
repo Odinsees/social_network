@@ -1,5 +1,7 @@
 import {AnyAction, Dispatch} from "redux";
 import {authAPI, usersAPI} from "../api/api";
+import {ThunkAction} from "redux-thunk";
+import {RootReducerType} from "./redux-store";
 
 const SET_USER_DATA = "auth-reducer/SET-USER-DATA";
 const TOGGLE_IS_FETCHING_AUTH = "auth-reducer/TOGGLE-IS-FETCHING"
@@ -31,7 +33,6 @@ const authReducer = (state: AuthStateType = initialState, action: AuthActionType
             return {
                 ...state,
                 ...action.payload,
-                isAuth: true
             }
         case TOGGLE_IS_FETCHING_AUTH:
             return {
@@ -93,8 +94,8 @@ export const checkedAuth = () => {
     }
 }
 
-export const loginUser = (email: string, password: string, rememberMe: boolean) => {
-    return (dispatch: any) => { //!!!!!!!!!
+export const loginUser = (email: string, password: string, rememberMe: boolean): ThunkAction<void, RootReducerType, void, AuthActionType> => {
+    return (dispatch) => { //!!!!!!!!!
         authAPI.login(email, password, rememberMe)
             .then((result) => {
                     if (result.data.resultCode === 0) {
@@ -109,7 +110,7 @@ export const loginUser = (email: string, password: string, rememberMe: boolean) 
 export const logOutUser = () => (dispatch: Dispatch) => {
     authAPI.logout()
         .then((result) => {
-            if (result.resultCode === 0) {
+            if (result.data.resultCode === 0) {
                 dispatch(setAuthUserData(null, null, null, false))
             }
         })
