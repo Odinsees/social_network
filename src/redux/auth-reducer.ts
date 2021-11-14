@@ -1,7 +1,8 @@
-import {AnyAction, Dispatch} from "redux";
+import {Dispatch} from "redux";
 import {authAPI, usersAPI} from "../api/api";
 import {ThunkAction} from "redux-thunk";
 import {RootReducerType} from "./redux-store";
+import {FormAction, stopSubmit} from "redux-form";
 
 const SET_USER_DATA = "auth-reducer/SET-USER-DATA";
 const TOGGLE_IS_FETCHING_AUTH = "auth-reducer/TOGGLE-IS-FETCHING"
@@ -54,6 +55,7 @@ type AuthActionType =
     | ReturnType<typeof toggleIsFetchingAuth>
     | ReturnType<typeof setUserNameAndPhoto>
 
+
 export const setAuthUserData = (userId: number | null, email: string | null, login: string | null, isAuth: boolean) => {
     return {
         type: SET_USER_DATA,
@@ -94,12 +96,15 @@ export const checkedAuth = () => {
     }
 }
 
-export const loginUser = (email: string, password: string, rememberMe: boolean): ThunkAction<void, RootReducerType, void, AuthActionType> => {
-    return (dispatch) => { //!!!!!!!!!
+export const loginUser = (email: string, password: string, rememberMe: boolean): ThunkAction<void, RootReducerType, void, AuthActionType | FormAction> => {
+    return (dispatch) => {
         authAPI.login(email, password, rememberMe)
             .then((result) => {
                     if (result.data.resultCode === 0) {
                         dispatch(checkedAuth())
+                    }else {
+                        let message = result.data.messages.length > 0 ? result.data.messages[0]: "Some error"
+                        dispatch(stopSubmit('login',{_error:message} as const))
                     }
                 }
             )
