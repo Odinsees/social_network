@@ -73,27 +73,24 @@ export const setUserNameAndPhoto = (userFullName: string, userPhoto: string,) =>
 }
 
 
-export const checkedAuth = () => {
-    return (dispatch: Dispatch) => {
-        dispatch(toggleIsFetchingAuth(true))
-        authAPI.checkedAuth()
-            .then((res) => {
-                if (res.data.resultCode === 0) {
-                    let {id, email, login,} = res.data.data
-                    dispatch(setAuthUserData(id, email, login, true))
-                    usersAPI.getUser(res.data.data.id)
-                        .then((data) => {
-                            let userName = data.fullName
-                            let userPhoto = data.photos.small
-                            dispatch(setUserNameAndPhoto(userName, userPhoto))
-                            dispatch(toggleIsFetchingAuth(false))
-                        });
-                } else {
-                    dispatch(toggleIsFetchingAuth(false))
-                }
-
-            });
-    }
+export const checkedAuth = () => (dispatch: Dispatch) => {
+    dispatch(toggleIsFetchingAuth(true))
+    return authAPI.checkedAuth()
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                let {id, email, login,} = res.data.data
+                dispatch(setAuthUserData(id, email, login, true))
+                usersAPI.getUser(res.data.data.id)
+                    .then((data) => {
+                        let userName = data.fullName
+                        let userPhoto = data.photos.small
+                        dispatch(setUserNameAndPhoto(userName, userPhoto))
+                        dispatch(toggleIsFetchingAuth(false))
+                    });
+            } else {
+                dispatch(toggleIsFetchingAuth(false))
+            }
+        });
 }
 
 export const loginUser = (email: string, password: string, rememberMe: boolean): ThunkAction<void, RootReducerType, void, AuthActionType | FormAction> => {
@@ -102,9 +99,9 @@ export const loginUser = (email: string, password: string, rememberMe: boolean):
             .then((result) => {
                     if (result.data.resultCode === 0) {
                         dispatch(checkedAuth())
-                    }else {
-                        let message = result.data.messages.length > 0 ? result.data.messages[0]: "Some error"
-                        dispatch(stopSubmit('login',{_error:message} as const))
+                    } else {
+                        let message = result.data.messages.length > 0 ? result.data.messages[0] : "Some error"
+                        dispatch(stopSubmit('login', {_error: message} as const))
                     }
                 }
             )

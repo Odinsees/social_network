@@ -6,6 +6,7 @@ import {RootReducerType} from "../../../redux/redux-store";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {WithAuthRedirect} from "../../../hoc/WithAuthRedirect";
+import {compose} from "redux";
 
 
 type MapStateToPropsType = {
@@ -24,10 +25,12 @@ let mapStateToProps = (state:RootReducerType):MapStateToPropsType =>{
     }
 }
 
-export const MyPostsContainer = withRouter(WithAuthRedirect(connect(
-    mapStateToProps,
-    {
-        addPost,
-    }
-    )(MyPosts)))
-
+export const MyPostsContainer = compose<React.ComponentType>(
+    withRouter,
+    connect(
+        mapStateToProps,
+        {
+            addPost,
+        }
+    )
+)(MyPosts)

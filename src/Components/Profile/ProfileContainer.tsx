@@ -10,9 +10,7 @@ import {
     updateStatusForProfileRender
 } from "../../redux/profileReducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
-import {UserStatusResponseType} from "../../api/api";
 
 type PathParamType = {
     userId: string
@@ -21,6 +19,8 @@ type PathParamType = {
 type MapStateToPropsType = {
     profile: null | ProfileType
     status: string
+    isAuthorizedUserId: number | null
+    isAuth: boolean
 }
 
 type MapDispatchToPropsType = {
@@ -33,9 +33,14 @@ export type ProfilePagePropsType = RouteComponentProps<PathParamType> & MapState
 class ProfileContainer extends React.Component<ProfilePagePropsType> {
 
     componentDidMount() {
+        debugger
         let userId = this.props.match.params.userId
         if (!userId) {
-            userId = '20153'
+            if (this.props.isAuthorizedUserId)
+                userId = this.props.isAuthorizedUserId.toString()
+            if (!(userId)) {
+                this.props.history.push("/login")
+            }
         }
         this.props.getUserForProfileRender(+userId)
         this.props.getUserStatusForProfileRender(+userId)
@@ -49,15 +54,13 @@ class ProfileContainer extends React.Component<ProfilePagePropsType> {
 const mapStateToProps = (state: RootReducerType): MapStateToPropsType => ({
     profile: state.profileReducer.profile,
     status: state.profileReducer.status,
+    isAuthorizedUserId: state.authReducer.userId,
+    isAuth: state.authReducer.isAuth,
 })
 
 
-// const WithAuthRedirect(connect(mapStateToProps, {getUserForProfileRender})(WithUrlDataContainerComponent))
-// export default WithUrlDataContainerComponent = withRouter(ProfileContainer)
-
 export default compose<React.ComponentType>(
     connect(mapStateToProps,
-        {getUserForProfileRender, getUserStatusForProfileRender,updateStatusForProfileRender}),
+        {getUserForProfileRender, getUserStatusForProfileRender, updateStatusForProfileRender}),
     withRouter,
-    WithAuthRedirect,
 )(ProfileContainer)

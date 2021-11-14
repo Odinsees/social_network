@@ -5,8 +5,10 @@ import userReducer from "./usersReducer";
 import authReducer from "./auth-reducer";
 import thunkMiddleware from 'redux-thunk';
 import { reducer as formReducer } from 'redux-form'
+import appReducer from "./app-reducer";
 
 let rootReducer = combineReducers({
+    appReducer,
     profileReducer,
     dialogsReducer,
     userReducer,
